@@ -12,7 +12,7 @@ final class FormExtension extends Extension
     public function getTags(): array
     {
         return [
-            'button' => Node\ContentNode::create(...),
+            'button' => Node\ButtonNode::create(...),
             'buttonGroup' => Node\ButtonGroupNode::create(...),
             'checkbox' => Node\CheckboxNode::create(...),
             'checkboxList' => Node\CheckboxListNode::create(...),
