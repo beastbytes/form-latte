@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace BeastBytes\View\Latte\Form\Node;
 
-final class ImageNode extends FieldNode
+final class ImageNode extends ButtonNode
 {
 }
