@@ -6,38 +6,48 @@ namespace BeastBytes\View\Latte\Form\Config;
 
 class Form
 {
-    public static function acceptCharset(): string
+    public static function acceptCharset(string $value): string
     {
-        return '';
+        return "acceptCharset($value)";
     }
 
-    public static function autocomplete(): string
+    public static function autocomplete(bool $value): string
     {
-        return '';
+        return 'autocomplete(' . ($value ? 'true' : 'false') . ')';
     }
 
-    public static function csrf(): string
+    public static function csrf(string $value): string
     {
-        return '';
+        return "csrf($value)";
     }
 
-    public static function enctype(): string
+    public static function enctype(string $value): string
     {
-        return '';
+        return "enctype($value)";
     }
 
-    public static function method(): string
+    public static function get(string $value): string
     {
-        return '';
+        return "get($value)";
     }
 
-    public static function noValidate(): string
+    public static function method(string $value): string
     {
-        return '';
+        return "method($value)";
     }
 
-    public static function target(): string
+    public static function noValidate(bool $value): string
     {
-        return '';
+        return 'noValidate(' . ($value ? 'true' : 'false') . ')';
+    }
+
+    public static function post(string $value): string
+    {
+        return "post($value)";
+    }
+
+    public static function target(string $value): string
+    {
+        return "target($value)";
     }
 }
