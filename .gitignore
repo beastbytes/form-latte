@@ -45,3 +45,7 @@ c3.php
 
 # phpDocumentor cache
 /docs/cache
+
+# Test temporary directories
+/test/generated/cache
+/test/generated/template
