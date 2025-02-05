@@ -13,12 +13,11 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Files\FileHelper;
-use Yiisoft\FormModel\FormModel;
 
 class FormExtensionTest extends TestCase
 {
-    private const  CACHE_DIR = __DIR__ . '/generated/cache';
-    private const  TEMPLATE_DIR = __DIR__ . '/generated/template';
+    private const CACHE_DIR = __DIR__ . '/generated/cache';
+    private const TEMPLATE_DIR = __DIR__ . '/generated/template';
 
     private Engine $latte;
 
@@ -37,13 +36,26 @@ class FormExtensionTest extends TestCase
  //       FileHelper::removeDirectory(self::CACHE_DIR);
  //       FileHelper::removeDirectory(self::TEMPLATE_DIR);
     }
-    
+
+    #[Test]
+    #[DataProvider('buttonTagProvider')]
+    public function button(string $tag, string $result): void
+    {
+        $this->createButtonTemplate($tag);
+
+        $field = $this
+            ->latte
+            ->renderToString(self::TEMPLATE_DIR . "/$tag-button.latte");
+
+        $this->assertSame($result, $field);
+    }
+
     #[Test]
     #[DataProvider('fieldTagProvider')]
     public function field(string $tag, string $result): void
     {
         $formModel = new TestForm();
-        $this->createFieldTemplate($tag, $formModel);
+        $this->createFieldTemplate($tag);
 
         $field = $this
             ->latte
@@ -53,17 +65,7 @@ class FormExtensionTest extends TestCase
     }
 
     #[Test]
-    #[DataProvider('filterProvider')]
-    public function getFilters(string $filter): void
-    {
-        $extension = new FormExtension();
-        $filters = $extension->getFilters();
-
-        $this->assertIsArray($filters);
-        $this->assertArrayHasKey(key: $filter, array: $filters);
-    }
-
-    #[Test]
+    #[DataProvider('buttonTagProvider')]
     #[DataProvider('fieldTagProvider')]
     public function getTags(string $tag): void
     {
@@ -74,15 +76,36 @@ class FormExtensionTest extends TestCase
         $this->assertArrayHasKey(key: $tag, array: $tags);
     }
 
-    public static function filterProvider(): Generator
+    public static function buttonTagProvider(): Generator
     {
-        yield ['filter' => 'acceptCharset'];
-        yield ['filter' => 'autocomplete'];
-        yield ['filter' => 'csrf'];
-        yield ['filter' => 'enctype'];
-        yield ['filter' => 'method'];
-        yield ['filter' => 'noValidate'];
-        yield ['filter' => 'target'];
+        yield [
+            'tag' => 'button',
+            'result' => "<div>\n"
+                . '<button type="button">button</button>' . "\n"
+                . '</div>'
+            ,
+        ];
+        yield [
+            'tag' => 'image',
+            'result' => "<div>\n"
+                . '<input type="image" src="image@example.com">' . "\n"
+                . '</div>'
+            ,
+        ];
+        yield [
+            'tag' => 'resetButton',
+            'result' => "<div>\n"
+                . '<button type="reset">resetButton</button>' . "\n"
+                . '</div>'
+            ,
+        ];
+        yield [
+            'tag' => 'submitButton',
+            'result' => "<div>\n"
+                . '<button type="submit">submitButton</button>' . "\n"
+                . '</div>'
+            ,
+        ];
     }
 
     public static function fieldTagProvider(): Generator
@@ -136,14 +159,6 @@ class FormExtensionTest extends TestCase
             'result' => '<input type="hidden" id="testform-hidden" name="TestForm[hidden]" value>',
         ];
         yield [
-            'tag' => 'image',
-            'result' => "<div>\n"
-                . '<label for="testform-image">Image Field</label>' . "\n"
-                . '<input type="image" id="testform-image" name="TestForm[image]" value>' . "\n"
-                . '</div>'
-            ,
-        ];
-        yield [
             'tag' => 'number',
             'result' => "<div>\n"
                 . '<label for="testform-number">Number Field</label>' . "\n"
@@ -189,12 +204,14 @@ class FormExtensionTest extends TestCase
                 . '</div>'
             ,
         ];
-        /*
         yield [
             'tag' => 'textarea',
-            'result' => '<textarea id="testform-textarea" name="TestForm[textarea]>',
+            'result' => "<div>\n"
+                . '<label for="testform-textarea">Textarea Field</label>' . "\n"
+                . '<textarea id="testform-textarea" name="TestForm[textarea]"></textarea>' . "\n"
+                . '</div>'
+            ,
         ];
-        */
         yield [
             'tag' => 'time',
             'result' => "<div>\n"
@@ -211,6 +228,17 @@ class FormExtensionTest extends TestCase
                 . '</div>'
             ,
         ];
+    }
+
+    private function createButtonTemplate($tag)
+    {
+        if ($tag === 'image') {
+            $template = '{' . $tag . "'$tag@example.com'}";
+        } else {
+            $template = '{' . $tag . " '$tag'}";
+        }
+
+        file_put_contents(self::TEMPLATE_DIR . "/$tag-button.latte", $template);
     }
 
     private function createFieldTemplate($tag)
