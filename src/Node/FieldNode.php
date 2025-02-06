@@ -40,9 +40,7 @@ class FieldNode extends StatementNode
             }
         }
 
-        if (!$tag->parser->isEnd()) {
-            $node->config = $tag->parser->parseModifier();
-        }
+        $node->config = $tag->parser->parseModifier();
 
         return $node;
     }
@@ -56,7 +54,7 @@ class FieldNode extends StatementNode
             . ') %line;',
             $this->formModel,
             $this->parameter,
-            $this->getConfig(),
+            $this->getConfig($context),
             $this->theme,
             $this->position,
         );
