@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BeastBytes\View\Latte\Form\Node;
 
-use BeastBytes\View\Latte\Form\Config\Field;
+use BeastBytes\View\Latte\Form\Config\ConfigTrait;
 use Generator;
 use Latte\Compiler\Nodes\Php\ExpressionNode;
 use Latte\Compiler\Nodes\StatementNode;

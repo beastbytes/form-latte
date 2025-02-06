@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BeastBytes\View\Latte\Form\Node;
 
+use BeastBytes\View\Latte\Form\Config\ConfigTrait;
 use Generator;
 use Latte\Compiler\Nodes\Php\ExpressionNode;
 use Latte\Compiler\Nodes\StatementNode;
@@ -12,17 +13,29 @@ use Latte\Compiler\Tag;
 
 class GroupNode extends StatementNode
 {
-    private ExpressionNode $config;
-    public string $name;
-    private ExpressionNode $theme;
+    use ConfigTrait;
+
+    private ExpressionNode $content;
+    private ?ExpressionNode $theme = null;
+    private string $name;
 
     public static function create(Tag $tag): self
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
         $node->name = $tag->name;
-        $node->config = $tag->parser->parseExpression();
-        $node->theme = $tag->parser->parseExpression();
+
+        foreach ($tag->parser->parseArguments() as $i => $argument) {
+            switch ($i) {
+                case 0:
+                    $node->theme = $argument->value;
+                    break;
+            }
+        }
+
+        if (!$tag->parser->isEnd()) {
+            $node->config = $tag->parser->parseModifier();
+        }
 
         return $node;
     }
@@ -30,9 +43,13 @@ class GroupNode extends StatementNode
     public function print(PrintContext $context): string
     {
         return $context->format(
-            'echo Yiisoft\FormModel\Field::' . $this->name . '(%node, %node) %line;',
-            $this->config,
+            'echo Yiisoft\FormModel\Field::' . $this->name
+            . '(%raw'
+            . ($this->theme !== null ? '%node' : ', %raw')
+            . ') %line;',
+            $this->getConfig(),
             $this->theme,
+            $this->position,
         );
     }
 
@@ -41,7 +58,8 @@ class GroupNode extends StatementNode
      */
     public function &getIterator(): Generator
     {
-        yield $this->config;
-        yield $this->theme;
+        if ($this->theme !== null) {
+            yield $this->theme;
+        }
     }
 }
