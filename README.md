@@ -1,6 +1,7 @@
 This package is a [Latte](https://latte.nette.org/) [extension](https://latte.nette.org/en/creating-extension) 
-that integrates Yii's [Form](https://github.com/yiisoft/form/) with the 
-[Latte Renderer for Yii](https://github.com/beastbytes/view-latte).
+that integrates the Yii 3 [Form Model](https://github.com/yiisoft/form-model) package with the 
+[Latte Renderer for Yii](https://github.com/beastbytes/view-latte), making developing forms with Latte and Yii 3
+
 
 ## Requirements
 - PHP 8.1 or higher.
@@ -31,8 +32,10 @@ of your configuration.
 ```
 
 ## Usage
-The extension adds tags to Latte for form fields, and the form and fieldset HTML tags. The tags have the minimum needed
-required paramters; optional parameters are specified using Latte's filter syntax. 
+The extension adds tags to Latte for form fields, and the form and fieldset HTML tags. The extension follows the
+conventions of the Form Model package, in that form fields are specified with the form model, field parameter,
+and optionally a theme; all other options are specified in the field configuration using Latte's filter syntax;
+where an option takes a value, the value is the same as for the equivalent form model field type. 
 
 ### Form Fields
 Form field tags have the same names as the Yii fields, e.g. 'text', 'email', etc.
@@ -53,7 +56,7 @@ Login form
 ```
 
 ### Example 2
-A form to collect a person's name, email, address, and phone number (field names are vCard fields):
+A form to collect a person's name, email, address, phone number, and agreement to terms:
 ```latte
 {form $action|csrf:$csrf}
     {text $formModel, 'givenName'|tabIndex}
@@ -63,9 +66,33 @@ A form to collect a person's name, email, address, and phone number (field names
     {text $formModel, 'locality'|required|tabIndex}
     {text $formModel, 'region'|required|tabIndex}
     {text $formModel, 'postalCode'|required|tabIndex}
+    {select $formModel, 'country'|required|tabIndex|optionsData:$countries}
     {telephone $formModel, 'telephone'|required|tabIndex}
+    {checkbox $formModel, 'agree'|tabIndex}
     {submitButton 'Submit'}
 {/form}
+```
+
+### Extra Features
+The package adds some extra features that make developing a form even easier.
+
+* **Field enrichment**: If you use field enrichment - setting options based on validation rules, e.g. `required`, just add
+the `enrich` option. By default Yii's Field Enricher is used, but you can specify your own.
+```latte
+  {text $formModel, 'familyName'|enrich} {* use the default enricher *}
+  {text $formModel, 'familyName'|enrich:$myEnricher} {* use $myEnricher *}
+```
+* **Tab Index**: If no value is given with the tabIndex option the package will auto number the fields.
+You can pass a value if you want to. **NOTE** do not mix auto numbering and self numbering in a form.
+```latte
+    {* Auto numbering *}
+    {text $formModel, 'givenName'|tabIndex}
+    {text $formModel, 'familyName'|tabIndex}
+```
+```latte
+    {* Self numbering *}
+    {text $formModel, 'givenName'|tabIndex:1}
+    {text $formModel, 'familyName'|tabIndex:2}
 ```
 
 ## License
