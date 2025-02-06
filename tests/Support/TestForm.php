@@ -9,7 +9,7 @@ use Yiisoft\FormModel\FormModel;
 class TestForm extends FormModel
 {
     private string $checkbox = '1';
-    private string $checkboxList = '';
+    private array $checkboxList = [];
     private string $date = '';
     private string $dateTimeLocal = '';
     private string $email = '';
