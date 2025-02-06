@@ -45,7 +45,7 @@ class FormExtensionTest extends TestCase
 
         $field = $this
             ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag-button.latte");
+            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte");
 
         $this->assertSame($result, $field);
     }
@@ -59,14 +59,27 @@ class FormExtensionTest extends TestCase
 
         $field = $this
             ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag-field.latte", ['formModel' => $formModel]);
+            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
 
         $this->assertSame($result, $field);
     }
 
     #[Test]
-    #[DataProvider('buttonTagProvider')]
-    #[DataProvider('fieldTagProvider')]
+    #[DataProvider('optionsFieldTagProvider')]
+    public function optionsField(string $tag, string $result): void
+    {
+        $formModel = new TestForm();
+        $this->createOptionsFieldTemplate($tag);
+
+        $field = $this
+            ->latte
+            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
+
+        $this->assertSame($result, $field);
+    }
+
+    #[Test]
+    #[DataProvider('tagProvider')]
     public function getTags(string $tag): void
     {
         $extension = new FormExtension();
@@ -74,6 +87,19 @@ class FormExtensionTest extends TestCase
 
         $this->assertIsArray($tags);
         $this->assertArrayHasKey(key: $tag, array: $tags);
+    }
+
+    public static function tagProvider(): Generator
+    {
+        foreach (self::buttonTagProvider() as $item) {
+            yield [$item['tag']];
+        }
+        foreach (self::fieldTagProvider() as $item) {
+            yield [$item['tag']];
+        }
+        foreach (self::optionsFieldTagProvider() as $item) {
+            yield [$item['tag']];
+        }
     }
 
     public static function buttonTagProvider(): Generator
@@ -108,20 +134,10 @@ class FormExtensionTest extends TestCase
         ];
     }
 
-    public static function fieldTagProvider(): Generator
+    public static function optionsFieldTagProvider(): Generator
     {
-        /*
-        yield [
-            'tag' => 'checkbox',
-            'result' => '<input type="text" id="testform-text"">',
-        ];
         yield [
             'tag' => 'checkboxList',
-            'result' => '<input type="text" id="testform-text">',
-        ];
-        */
-        yield [
-            'tag' => 'date',
             'result' => "<div>\n"
                 . '<label for="testform-date">Date Field</label>' . "\n"
                 . '<input type="date" id="testform-date" name="TestForm[date]" value>' . "\n"
@@ -130,14 +146,44 @@ class FormExtensionTest extends TestCase
         ];
         /*
         yield [
-            'tag' => 'dateTimeLocal',
+            'tag' => 'radioList',
+            'result' => '',
+        ];
+        yield [
+            'tag' => 'select',
+            'result' => '',
+        ];
+        */
+    }
+
+    public static function fieldTagProvider(): Generator
+    {
+        yield [
+            'tag' => 'checkbox',
             'result' => "<div>\n"
-                . '<label for="testform-time">Time Field</label>' . "\n"
-                . '<input type="tel" id="testform-time" name="TestForm[time]" value>' . "\n"
+                . '<input type="hidden" name="TestForm[checkbox]" value="0">'
+                . '<label>'
+                . '<input type="checkbox" id="testform-checkbox" name="TestForm[checkbox]" value="1" checked>'
+                . " Checkbox Field</label>\n"
                 . '</div>'
             ,
         ];
-        */
+        yield [
+            'tag' => 'date',
+            'result' => "<div>\n"
+                . '<label for="testform-date">Date Field</label>' . "\n"
+                . '<input type="date" id="testform-date" name="TestForm[date]" value>' . "\n"
+                . '</div>'
+            ,
+        ];
+        yield [
+            'tag' => 'dateTimeLocal',
+            'result' => "<div>\n"
+                . '<label for="testform-datetimelocal">DateTimeLocal Field</label>' . "\n"
+                . '<input type="datetime-local" id="testform-datetimelocal" name="TestForm[dateTimeLocal]" value>' . "\n"
+                . '</div>'
+            ,
+        ];
         yield [
             'tag' => 'email',
             'result' => "<div>\n"
@@ -174,20 +220,14 @@ class FormExtensionTest extends TestCase
                 . '</div>'
             ,
         ];
-        /*
-        yield [
-            'tag' => 'radioList',
-            'result' => '',
-        ];
         yield [
             'tag' => 'range',
-            'result' => '',
+            'result' => "<div>\n"
+                . '<label for="testform-range">Range Field</label>' . "\n"
+                . '<input type="range" id="testform-range" name="TestForm[range]" value>' . "\n"
+                . '</div>'
+            ,
         ];
-        yield [
-            'tag' => 'select',
-            'result' => '',
-        ];
-        */
         yield [
             'tag' => 'telephone',
             'result' => "<div>\n"
@@ -230,7 +270,7 @@ class FormExtensionTest extends TestCase
         ];
     }
 
-    private function createButtonTemplate($tag)
+    private function createButtonTemplate($tag): void
     {
         if ($tag === 'image') {
             $template = '{' . $tag . "'$tag@example.com'}";
@@ -238,14 +278,31 @@ class FormExtensionTest extends TestCase
             $template = '{' . $tag . " '$tag'}";
         }
 
-        file_put_contents(self::TEMPLATE_DIR . "/$tag-button.latte", $template);
+        file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 
-    private function createFieldTemplate($tag)
+    private function createFieldTemplate($tag): void
     {
         $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n\n";
         $template .= '{' . $tag . " \$formModel, '$tag'}";
 
-        file_put_contents(self::TEMPLATE_DIR . "/$tag-field.latte", $template);
+        file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
+    }
+
+    private function createOptionsFieldTemplate($tag): void
+    {
+        $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n\n";
+        $template .= "{var \$options = ['one'=>'One','two'=>'Two','three'=>'Three']}\n\n";
+        $template .= '{' . $tag . " \$formModel, '$tag'|";
+
+        if ($tag === 'select') {
+            $template .= 'optionsData:$options';
+        } else {
+            $template .= 'items:$options';
+        }
+
+        $template .= '}';
+
+        file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 }
