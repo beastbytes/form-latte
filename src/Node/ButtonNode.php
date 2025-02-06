@@ -16,7 +16,7 @@ class ButtonNode extends StatementNode
 
     private ExpressionNode $content;
     private ?ExpressionNode $theme = null;
-    protected string $name;
+    private string $name;
 
     public static function create(Tag $tag): self
     {
