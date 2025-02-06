@@ -34,9 +34,7 @@ class ErrorSummaryNode extends StatementNode
             }
         }
 
-        if (!$tag->parser->isEnd()) {
-            $node->config = $tag->parser->parseModifier();
-        }
+        $node->config = $tag->parser->parseModifier();
 
         return $node;
     }
