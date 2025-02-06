@@ -8,7 +8,7 @@ use Yiisoft\FormModel\FormModel;
 
 class TestForm extends FormModel
 {
-    private string $checkbox = '';
+    private string $checkbox = '1';
     private string $checkboxList = '';
     private string $date = '';
     private string $dateTimeLocal = '';
