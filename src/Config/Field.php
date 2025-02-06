@@ -12,191 +12,197 @@ class Field
 {
     private static $tabindex = 1;
 
-    public static function enrich(?ValidationRulesEnricherInterface $enricher = null): array
+    public static function enrich(ValidationRulesEnricherInterface $enricher): array
     {
-        if ($enricher === null) {
-            $enricher === new ValidationRulesEnricher();
-        }
-
         return [
-            'enrichFromValidationRules() => [true]',
-            'validationRulesEnricher() => [$enricher]', // @todo not correct
+            'enrichFromValidationRules()' => [true],
+            'validationRulesEnricher()' => [$enricher]
         ];
     }
 
-    public static function required(bool $value = true): string
+    public static function ariaDescribedBy(string ...$value): array
     {
-        return "'required()' => [" . ($value ? 'true' : 'false') . ']';
+        return ['ariaDescribedBy()' => [join(',', $value)]];
     }
 
-    public static function ariaDescribedBy(string ...$value): string
+    public static function ariaLabel(string $value): array
     {
-        return "'ariaDescribedBy()' => [" . join(',', $value) . ']';
+        return ['ariaLabel()' => [$value]];
     }
 
-    public static function ariaLabel(string $value): string
+    public static function autofocus(bool $value = true): array
     {
-        return "'ariaLabel()' => [" . $value . ']';
+        return ['autofocus()' => [$value]];
     }
 
-    public static function autofocus(bool $value = true): string
+    public static function dirname(string $value): array
     {
-        return "'autofocus()' => [" . ($value ? 'true' : 'false') . ']';
+        return ['dirname()' => [$value]];
     }
 
-    public static function dirname(string $value): string
+    public static function disabled(bool $value = true): array
     {
-        return "'dirname()' => [" . $value . ']';
+        return ['disabled()' => [$value]];
     }
 
-    public static function disabled(bool $value = true): string
+    public static function items(array $value): array
     {
-        return "'disabled()' => [" . ($value ? 'true' : 'false') . ']';
+        return ['items()' => [$value]];
     }
 
-    public static function maxlength(int $value): string
+    public static function maxlength(int $value): array
     {
-        return "'maxlength()' => [" . $value . ']';
+        return ['maxlength()' => [$value]];
     }
 
-    public static function minlength(int $value): string
+    public static function minlength(int $value): array
     {
-        return "'minlength()' => [" . $value . ']';
+        return ['minlength()' => [$value]];
     }
 
-    public static function pattern(string $value): string
+    public static function optionsData(array $value): array
     {
-        return "'pattern()' => [" . $value . ']';
+        return ['optionsData()' => [$value]];
     }
 
-    public static function readonly(bool $value = true): string
+    public static function pattern(string $value): array
     {
-        return "'readonly()' => [" . ($value ? 'true' : 'false') . ']';
+        return ['pattern()' => [$value]];
     }
 
-    public static function size(int $value): string
+    public static function readonly(bool $value = true): array
     {
-        return "'size()' => [" . $value . ']';
+        return ['readonly()' => [$value]];
     }
 
-    public static function tabIndex(?int $value): string
+    public static function required(bool $value = true): array
+    {
+        return ['required()' => [$value]];
+    }
+
+    public static function size(int $value): array
+    {
+        return ['size()' => [$value]];
+    }
+
+    public static function tabIndex(?int $value): array
     {
         if (is_null($value)) {
             $value = self::$tabindex++;
         }
 
-        return "'tabIndex()' => [" . $value . ']';
+        return ['tabIndex()' => [$value]];
     }
 
-    public static function placeholder(string $value): string
+    public static function placeholder(string $value): array
     {
-        return "'placeholder()' => [" . $value . ']';
+        return ['placeholder()' => [$value]];
     }
 
-    public static function usePlaceholder(bool $value): string
+    public static function usePlaceholder(bool $value): array
     {
-        return "'usePlaceholder()' => [" . ($value ? 'true' : 'false') . ']';
+        return ['usePlaceholder()' => [$value]];
     }
 
-    public static function invalidClass(string $value): string
+    public static function invalidClass(string $value): array
     {
-        return "'invalidClass()' => [" . $value . ']';
+        return ['invalidClass()' => [$value]];
     }
 
-    public static function validClass(string $value): string
+    public static function validClass(string $value): array
     {
-        return "'validClass()' => [" . $value . ']';
+        return ['validClass()' => [$value]];
     }
 
-    public static function inputInvalidClass(string $value): string
+    public static function inputInvalidClass(string $value): array
     {
-        return "'inputInvalidClass()' => [" . $value . ']';
+        return ['inputInvalidClass()' => [$value]];
     }
 
-    public static function inputValidClass(string $value): string
+    public static function inputValidClass(string $value): array
     {
-        return "'inputValidClass()' => [" . $value . ']';
+        return ['inputValidClass()' => [$value]];
     }
 
-    public static function cols(int $value): string
+    public static function cols(int $value): array
     {
-        return "'cols()' => [" . $value . ']';
+        return ['cols()' => [$value]];
     }
 
-    public static function rows(int $value): string
+    public static function rows(int $value): array
     {
-        return "'rows()' => [" . $value . ']';
+        return ['rows()' => [$value]];
     }
 
-    public static function wrap(string $value): string
+    public static function wrap(string $value): array
     {
-        return "'wrap()' => [" . $value . ']';
+        return ['wrap()' => [$value]];
     }
 
-    public static function max(float|int|string|Stringable $value): string
+    public static function max(float|int|string|Stringable $value): array
     {
-        return "'max()' => [" . $value . ']';
+        return ['max()' => [$value]];
     }
 
-    public static function min(float|int|string|Stringable $value): string
+    public static function min(float|int|string|Stringable $value): array
     {
-        return "'min()' => [" . $value . ']';
+        return ['min()' => [$value]];
     }
 
-    public static function step(float|int|string|Stringable $value): string
+    public static function step(float|int|string|Stringable $value): array
     {
-        return "'step()' => [" . $value . ']';
+        return ['step()' => [$value]];
     }
 
-    public static function list(string $value): string
+    public static function list(string $value): array
     {
-        return "'list()' => [" . $value . ']';
+        return ['list()' => [$value]];
     }
 
-    public static function alt(string $value): string
+    public static function alt(string $value): array
     {
-        return "'alt()' => [" . $value . ']';
+        return ['alt()' => [$value]];
     }
 
-    public static function width(int|string|Stringable $value): string
+    public static function width(int|string|Stringable $value): array
     {
-        return "'width()' => [" . $value . ']';
+        return ['width()' => [$value]];
     }
 
-    public static function height(int|string|Stringable $value): string
+    public static function height(int|string|Stringable $value): array
     {
-        return "'height()' => [" . $value . ']';
+        return ['height()' => [$value]];
     }
 
-    public static function src(string $value): string
+    public static function src(string $value): array
     {
-        return "'src()' => [" . $value . ']';
+        return ['src()' => [$value]];
     }
 
-    public static function accept(string $value): string
+    public static function accept(string $value): array
     {
-        return "'accept()' => [" . $value . ']';
+        return ['accept()' => [$value]];
     }
 
-    public static function multiple(bool $value = true): string
+    public static function multiple(bool $value = true): array
     {
-        return "'multiple()' => [" . ($value ? 'true' : 'false') . ']';
+        return ['multiple()' => [$value]];
     }
 
-    public static function form(string $value): string
+    public static function form(string $value): array
     {
-        return "'form()' => [" . $value . ']';
+        return ['form()' => [$value]];
     }
 
     /*
-    public static function legend(string|Stringable|null $content, array $attributes = []): string
+    public static function legend(string|Stringable|null $content, array $attributes = []): array
     {
         $new = clone $this;
         $new->tag = $this->tag->legend($content, $attributes);
         return $new;
     }
 
-    public static function legendTag(?Legend $legend): string
+    public static function legendTag(?Legend $legend): array
     {
         $new = clone $this;
         $new->tag = $this->tag->legendTag($legend);
