@@ -49,7 +49,7 @@ final class ButtonNode extends StatementNode
             . ($this->theme !== null ? '%node' : ', %raw')
             . ') %line;',
             $this->content,
-            $this->getConfig(),
+            $this->getConfig($context),
             $this->theme,
             $this->position,
         );
