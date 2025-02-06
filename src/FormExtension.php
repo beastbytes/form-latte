@@ -9,6 +9,14 @@ use Latte\Extension;
 
 final class FormExtension extends Extension
 {
+    public function getFilters(): array
+    {
+        return [
+            'items' => Config\Field::items(...),
+            'optionsData' => Config\Field::optionsData(...),
+        ];
+    }
+
     public function getTags(): array
     {
         return [
@@ -42,5 +50,18 @@ final class FormExtension extends Extension
     public function getCacheKey(Engine $engine): string
     {
         return md5(self::class);
+    }
+
+    public static function getConfig(array $configuration): array
+    {
+        $config = [];
+
+        foreach ($configuration as $c) {
+            foreach ($c as $k => $v) {
+                $config[$k] = $v;
+            }
+        }
+
+        return $config;
     }
 }

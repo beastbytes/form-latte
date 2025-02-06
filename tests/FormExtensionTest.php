@@ -139,20 +139,40 @@ class FormExtensionTest extends TestCase
         yield [
             'tag' => 'checkboxList',
             'result' => "<div>\n"
-                . '<label for="testform-date">Date Field</label>' . "\n"
-                . '<input type="date" id="testform-date" name="TestForm[date]" value>' . "\n"
+                . '<label>CheckboxList Field</label>' . "\n"
+                . "<div>\n"
+                . '<label><input type="checkbox" name="TestForm[checkboxList][]" value="one"> One</label>' . "\n"
+                . '<label><input type="checkbox" name="TestForm[checkboxList][]" value="two"> Two</label>' . "\n"
+                . '<label><input type="checkbox" name="TestForm[checkboxList][]" value="three"> Three</label>' . "\n"
+                . "</div>\n"
+                . '</div>'
+            ,
+        ];
+        yield [
+            'tag' => 'radioList',
+            'result' => "<div>\n"
+                . '<label>RadioList Field</label>' . "\n"
+                . "<div>\n"
+                . '<label><input type="radio" name="TestForm[radioList]" value="one"> One</label>' . "\n"
+                . '<label><input type="radio" name="TestForm[radioList]" value="two"> Two</label>' . "\n"
+                . '<label><input type="radio" name="TestForm[radioList]" value="three"> Three</label>' . "\n"
+                . "</div>\n"
+                . '</div>'
+            ,
+        ];
+        yield [
+            'tag' => 'select',
+            'result' => "<div>\n"
+                . '<label for="testform-select">Select Field</label>' . "\n"
+                . '<select id="testform-select" name="TestForm[select]">' . "\n"
+                . '<option value="one">One</option>' . "\n"
+                . '<option value="two">Two</option>' . "\n"
+                . '<option value="three">Three</option>' . "\n"
+                . "</select>\n"
                 . '</div>'
             ,
         ];
         /*
-        yield [
-            'tag' => 'radioList',
-            'result' => '',
-        ];
-        yield [
-            'tag' => 'select',
-            'result' => '',
-        ];
         */
     }
 
