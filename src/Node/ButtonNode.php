@@ -11,7 +11,7 @@ use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
 
-class ButtonNode extends StatementNode
+final class ButtonNode extends StatementNode
 {
     use ConfigTrait;
 

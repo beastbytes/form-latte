@@ -11,11 +11,10 @@ use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
 
-class GroupNode extends StatementNode
+final class GroupNode extends StatementNode
 {
     use ConfigTrait;
 
-    private ExpressionNode $content;
     private ?ExpressionNode $theme = null;
     private string $name;
 

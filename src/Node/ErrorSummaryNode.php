@@ -11,7 +11,7 @@ use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
 
-class ErrorSummaryNode extends StatementNode
+final class ErrorSummaryNode extends StatementNode
 {
     use ConfigTrait;
 
