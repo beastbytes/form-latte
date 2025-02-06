@@ -15,10 +15,10 @@ class FieldNode extends StatementNode
 {
     use ConfigTrait;
 
-    protected ExpressionNode $formModel;
-    protected ExpressionNode $parameter;
-    protected ?ExpressionNode $theme = null;
-    protected string $name;
+    private ExpressionNode $formModel;
+    private ExpressionNode $parameter;
+    private ?ExpressionNode $theme = null;
+    private string $name;
 
     public static function create(Tag $tag): self
     {
