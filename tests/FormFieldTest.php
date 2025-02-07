@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Files\FileHelper;
 
-class FormExtensionTest extends TestCase
+class FormFieldTest extends TestCase
 {
     private const CACHE_DIR = __DIR__ . '/generated/cache';
     private const TEMPLATE_DIR = __DIR__ . '/generated/template';
@@ -33,8 +33,8 @@ class FormExtensionTest extends TestCase
     protected function tearDown(): void
     {
         parent::tearDown();
- //       FileHelper::removeDirectory(self::CACHE_DIR);
- //       FileHelper::removeDirectory(self::TEMPLATE_DIR);
+        FileHelper::removeDirectory(self::CACHE_DIR);
+        FileHelper::removeDirectory(self::TEMPLATE_DIR);
     }
 
     #[Test]
@@ -42,6 +42,19 @@ class FormExtensionTest extends TestCase
     public function button(string $tag, string $result): void
     {
         $this->createButtonTemplate($tag);
+
+        $field = $this
+            ->latte
+            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte");
+
+        $this->assertSame($result, $field);
+    }
+
+    #[Test]
+    #[DataProvider('buttonGroupTagProvider')]
+    public function buttonGroup(string $tag, string $result): void
+    {
+        $this->createButtonGroupTemplate($tag);
 
         $field = $this
             ->latte
@@ -100,6 +113,17 @@ class FormExtensionTest extends TestCase
         foreach (self::optionsFieldTagProvider() as $item) {
             yield [$item['tag']];
         }
+    }
+
+    public static function buttonGroupTagProvider(): Generator
+    {
+        yield [
+            'tag' => 'buttonGroup',
+            'result' => "<div>\n"
+                . '<button type="reset">Reset</button>' . "\n"
+                . '<button type="submit">Send</button>' . "\n"
+                . '</div>'
+        ];
     }
 
     public static function buttonTagProvider(): Generator
@@ -172,8 +196,6 @@ class FormExtensionTest extends TestCase
                 . '</div>'
             ,
         ];
-        /*
-        */
     }
 
     public static function fieldTagProvider(): Generator
@@ -288,6 +310,18 @@ class FormExtensionTest extends TestCase
                 . '</div>'
             ,
         ];
+    }
+
+    private function createButtonGroupTemplate($tag): void
+    {
+        $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n\n";
+        $template .= "{var \$buttons = [
+            Yiisoft\Html\Html::resetButton('Reset'),
+            Yiisoft\Html\Html::submitButton('Send'),
+        ]}\n\n";
+        $template .= '{' . $tag . '|buttons: ...$buttons}';
+
+        file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 
     private function createButtonTemplate($tag): void
