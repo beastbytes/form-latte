@@ -14,9 +14,10 @@ final class FormExtension extends Extension
         return [
             'accept' => Config\Field::value(...),
             'alt' => Config\Field::value(...),
-            'ariaDescribedBy' => Config\Field::variableLength(...),
+            'ariaDescribedBy' => Config\Field::variadic(...),
             'ariaLabel' => Config\Field::value(...),
             'autofocus' => Config\Field::boolean(...),
+            'buttons' => Config\Field::variadic(...),
             'cols' => Config\Field::value(...),
             'dirname' => Config\Field::value(...),
             'disabled' => Config\Field::boolean(...),
