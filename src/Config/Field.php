@@ -41,9 +41,9 @@ class Field
         return ["$name()" => [$value]];
     }
 
-    public static function variableLength(string $name, string ...$value): array
+    public static function variadic(string $name, mixed ...$value): array
     {
-        return ["$name()" => [join(',', $value)]];
+        return ["$name()" => [...$value]];
     }
 
     /*
