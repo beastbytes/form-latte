@@ -1,6 +1,6 @@
 This package is a [Latte](https://latte.nette.org/) [extension](https://latte.nette.org/en/creating-extension) 
 that integrates the Yii 3 [Form Model](https://github.com/yiisoft/form-model) package with the 
-[Latte Renderer for Yii](https://github.com/beastbytes/view-latte), making developing forms with Latte and Yii 3
+[Latte Renderer for Yii](https://github.com/beastbytes/view-latte); it supports all built-in fields.
 
 
 ## Requirements
