@@ -64,6 +64,7 @@ final class FormExtension extends Extension
             'errorSummary' => Node\ErrorSummaryNode::create(...),
             'fieldset' => Node\GroupNode::create(...),
             'file' => Node\FieldNode::create(...),
+            'form' => Node\FormNode::create(...),
             'hidden' => Node\FieldNode::create(...),
             'image' => Node\ButtonNode::create(...),
             'number' => Node\FieldNode::create(...),
