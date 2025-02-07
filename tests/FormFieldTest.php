@@ -6,89 +6,64 @@ namespace BeastBytes\View\Latte\Form\Tests;
 
 use BeastBytes\View\Latte\Form\FormExtension;
 use BeastBytes\View\Latte\Form\Tests\Support\TestForm;
-use BeastBytes\View\Latte\LatteFactory;
 use Generator;
-use Latte\Engine;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
-use Yiisoft\Files\FileHelper;
 
-class FormFieldTest extends TestCase
+class FormFieldTest extends BaseTest
 {
-    private const CACHE_DIR = __DIR__ . '/generated/cache';
-    private const TEMPLATE_DIR = __DIR__ . '/generated/template';
-
-    private Engine $latte;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        FileHelper::ensureDirectory(self::CACHE_DIR);
-        FileHelper::ensureDirectory(self::TEMPLATE_DIR);
-        $factory = new LatteFactory(self::CACHE_DIR, extensions: [new FormExtension()]);
-        $this->latte = $factory->create();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        FileHelper::removeDirectory(self::CACHE_DIR);
-        FileHelper::removeDirectory(self::TEMPLATE_DIR);
-    }
-
     #[Test]
     #[DataProvider('buttonTagProvider')]
-    public function button(string $tag, string $result): void
+    public function button(string $tag, string $expected): void
     {
         $this->createButtonTemplate($tag);
 
-        $field = $this
+        $html = $this
             ->latte
             ->renderToString(self::TEMPLATE_DIR . "/$tag.latte");
 
-        $this->assertSame($result, $field);
+        $this->assertSame($expected, $html);
     }
 
     #[Test]
     #[DataProvider('buttonGroupTagProvider')]
-    public function buttonGroup(string $tag, string $result): void
+    public function buttonGroup(string $tag, string $expected): void
     {
         $this->createButtonGroupTemplate($tag);
 
-        $field = $this
+        $html = $this
             ->latte
             ->renderToString(self::TEMPLATE_DIR . "/$tag.latte");
 
-        $this->assertSame($result, $field);
+        $this->assertSame($expected, $html);
     }
 
     #[Test]
     #[DataProvider('fieldTagProvider')]
-    public function field(string $tag, string $result): void
+    public function field(string $tag, string $expected): void
     {
         $formModel = new TestForm();
         $this->createFieldTemplate($tag);
 
-        $field = $this
+        $html = $this
             ->latte
             ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
 
-        $this->assertSame($result, $field);
+        $this->assertSame($expected, $html);
     }
 
     #[Test]
     #[DataProvider('optionsFieldTagProvider')]
-    public function optionsField(string $tag, string $result): void
+    public function optionsField(string $tag, string $expected): void
     {
         $formModel = new TestForm();
         $this->createOptionsFieldTemplate($tag);
 
-        $field = $this
+        $html = $this
             ->latte
             ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
 
-        $this->assertSame($result, $field);
+        $this->assertSame($expected, $html);
     }
 
     #[Test]
@@ -119,10 +94,12 @@ class FormFieldTest extends TestCase
     {
         yield [
             'tag' => 'buttonGroup',
-            'result' => "<div>\n"
-                . '<button type="reset">Reset</button>' . "\n"
-                . '<button type="submit">Send</button>' . "\n"
-                . '</div>'
+            'expected' => <<<EXPECTED
+<div>
+<button type="reset">Reset</button>
+<button type="submit">Send</button>
+</div>
+EXPECTED
         ];
     }
 
@@ -130,31 +107,35 @@ class FormFieldTest extends TestCase
     {
         yield [
             'tag' => 'button',
-            'result' => "<div>\n"
-                . '<button type="button">button</button>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<button type="button">button</button>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'image',
-            'result' => "<div>\n"
-                . '<input type="image" src="image@example.com">' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<input type="image" src="image@example.com">
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'resetButton',
-            'result' => "<div>\n"
-                . '<button type="reset">resetButton</button>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<button type="reset">resetButton</button>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'submitButton',
-            'result' => "<div>\n"
-                . '<button type="submit">submitButton</button>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<button type="submit">submitButton</button>
+</div>
+EXPECTED,
         ];
     }
 
@@ -162,39 +143,42 @@ class FormFieldTest extends TestCase
     {
         yield [
             'tag' => 'checkboxList',
-            'result' => "<div>\n"
-                . '<label>CheckboxList Field</label>' . "\n"
-                . "<div>\n"
-                . '<label><input type="checkbox" name="TestForm[checkboxList][]" value="one"> One</label>' . "\n"
-                . '<label><input type="checkbox" name="TestForm[checkboxList][]" value="two"> Two</label>' . "\n"
-                . '<label><input type="checkbox" name="TestForm[checkboxList][]" value="three"> Three</label>' . "\n"
-                . "</div>\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label>CheckboxList Field</label>
+<div>
+<label><input type="checkbox" name="TestForm[checkboxList][]" value="one"> One</label>
+<label><input type="checkbox" name="TestForm[checkboxList][]" value="two"> Two</label>
+<label><input type="checkbox" name="TestForm[checkboxList][]" value="three"> Three</label>
+</div>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'radioList',
-            'result' => "<div>\n"
-                . '<label>RadioList Field</label>' . "\n"
-                . "<div>\n"
-                . '<label><input type="radio" name="TestForm[radioList]" value="one"> One</label>' . "\n"
-                . '<label><input type="radio" name="TestForm[radioList]" value="two"> Two</label>' . "\n"
-                . '<label><input type="radio" name="TestForm[radioList]" value="three"> Three</label>' . "\n"
-                . "</div>\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label>RadioList Field</label>
+<div>
+<label><input type="radio" name="TestForm[radioList]" value="one"> One</label>
+<label><input type="radio" name="TestForm[radioList]" value="two"> Two</label>
+<label><input type="radio" name="TestForm[radioList]" value="three"> Three</label>
+</div>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'select',
-            'result' => "<div>\n"
-                . '<label for="testform-select">Select Field</label>' . "\n"
-                . '<select id="testform-select" name="TestForm[select]">' . "\n"
-                . '<option value="one">One</option>' . "\n"
-                . '<option value="two">Two</option>' . "\n"
-                . '<option value="three">Three</option>' . "\n"
-                . "</select>\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-select">Select Field</label>
+<select id="testform-select" name="TestForm[select]">
+<option value="one">One</option>
+<option value="two">Two</option>
+<option value="three">Three</option>
+</select>
+</div>
+EXPECTED,
         ];
     }
 
@@ -202,113 +186,123 @@ class FormFieldTest extends TestCase
     {
         yield [
             'tag' => 'checkbox',
-            'result' => "<div>\n"
-                . '<input type="hidden" name="TestForm[checkbox]" value="0">'
-                . '<label>'
-                . '<input type="checkbox" id="testform-checkbox" name="TestForm[checkbox]" value="1" checked>'
-                . " Checkbox Field</label>\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<input type="hidden" name="TestForm[checkbox]" value="0"><label><input type="checkbox" id="testform-checkbox" name="TestForm[checkbox]" value="1" checked> Checkbox Field</label>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'date',
-            'result' => "<div>\n"
-                . '<label for="testform-date">Date Field</label>' . "\n"
-                . '<input type="date" id="testform-date" name="TestForm[date]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-date">Date Field</label>
+<input type="date" id="testform-date" name="TestForm[date]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'dateTimeLocal',
-            'result' => "<div>\n"
-                . '<label for="testform-datetimelocal">DateTimeLocal Field</label>' . "\n"
-                . '<input type="datetime-local" id="testform-datetimelocal" name="TestForm[dateTimeLocal]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-datetimelocal">DateTimeLocal Field</label>
+<input type="datetime-local" id="testform-datetimelocal" name="TestForm[dateTimeLocal]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'email',
-            'result' => "<div>\n"
-                . '<label for="testform-email">Email Field</label>' . "\n"
-                . '<input type="email" id="testform-email" name="TestForm[email]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-email">Email Field</label>
+<input type="email" id="testform-email" name="TestForm[email]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'file',
-            'result' => "<div>\n"
-                . '<label for="testform-file">File Field</label>' . "\n"
-                . '<input type="file" id="testform-file" name="TestForm[file]">' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-file">File Field</label>
+<input type="file" id="testform-file" name="TestForm[file]">
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'hidden',
-            'result' => '<input type="hidden" id="testform-hidden" name="TestForm[hidden]" value>',
+            'expected' => '<input type="hidden" id="testform-hidden" name="TestForm[hidden]" value>',
         ];
         yield [
             'tag' => 'number',
-            'result' => "<div>\n"
-                . '<label for="testform-number">Number Field</label>' . "\n"
-                . '<input type="number" id="testform-number" name="TestForm[number]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-number">Number Field</label>
+<input type="number" id="testform-number" name="TestForm[number]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'password',
-            'result' => "<div>\n"
-                . '<label for="testform-password">Password Field</label>' . "\n"
-                . '<input type="password" id="testform-password" name="TestForm[password]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-password">Password Field</label>
+<input type="password" id="testform-password" name="TestForm[password]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'range',
-            'result' => "<div>\n"
-                . '<label for="testform-range">Range Field</label>' . "\n"
-                . '<input type="range" id="testform-range" name="TestForm[range]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-range">Range Field</label>
+<input type="range" id="testform-range" name="TestForm[range]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'telephone',
-            'result' => "<div>\n"
-                . '<label for="testform-telephone">Telephone Field</label>' . "\n"
-                . '<input type="tel" id="testform-telephone" name="TestForm[telephone]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-telephone">Telephone Field</label>
+<input type="tel" id="testform-telephone" name="TestForm[telephone]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'text',
-            'result' => "<div>\n"
-                . '<label for="testform-text">Text Field</label>' . "\n"
-                . '<input type="text" id="testform-text" name="TestForm[text]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-text">Text Field</label>
+<input type="text" id="testform-text" name="TestForm[text]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'textarea',
-            'result' => "<div>\n"
-                . '<label for="testform-textarea">Textarea Field</label>' . "\n"
-                . '<textarea id="testform-textarea" name="TestForm[textarea]"></textarea>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-textarea">Textarea Field</label>
+<textarea id="testform-textarea" name="TestForm[textarea]"></textarea>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'time',
-            'result' => "<div>\n"
-                . '<label for="testform-time">Time Field</label>' . "\n"
-                . '<input type="time" id="testform-time" name="TestForm[time]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-time">Time Field</label>
+<input type="time" id="testform-time" name="TestForm[time]" value>
+</div>
+EXPECTED,
         ];
         yield [
             'tag' => 'url',
-            'result' => "<div>\n"
-                . '<label for="testform-url">Url Field</label>' . "\n"
-                . '<input type="url" id="testform-url" name="TestForm[url]" value>' . "\n"
-                . '</div>'
-            ,
+            'expected' => <<<EXPECTED
+<div>
+<label for="testform-url">Url Field</label>
+<input type="url" id="testform-url" name="TestForm[url]" value>
+</div>
+EXPECTED,
         ];
     }
 
