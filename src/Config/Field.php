@@ -10,17 +10,19 @@ use Yiisoft\FormModel\ValidationRulesEnricher;
 
 class Field
 {
-    private static int $tabindex = 1;
-
     public static function boolean(string $name, bool $value = true): array
     {
         return ["$name()" => [$value]];
     }
 
-    public static function counter(string $name, ?int $value): array
+    public static function counter(string $name, ?int $value = null): array
     {
+        static $counters = [
+            'tabIndex' => 1
+        ];
+
         if (is_null($value)) {
-            $value = self::$$name++;
+            $value = $counters[$name]++;
         }
 
         return ["$name()" => [$value]];
