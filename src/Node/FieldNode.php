@@ -7,6 +7,7 @@ namespace BeastBytes\View\Latte\Form\Node;
 use BeastBytes\View\Latte\Form\Config\ConfigTrait;
 use Generator;
 use Latte\Compiler\Nodes\Php\ExpressionNode;
+use Latte\Compiler\Nodes\Php\IdentifierNode;
 use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
@@ -18,13 +19,13 @@ final class FieldNode extends StatementNode
     private ExpressionNode $formModel;
     private ExpressionNode $parameter;
     private ?ExpressionNode $theme = null;
-    private string $name;
+    private IdentifierNode $name;
 
     public static function create(Tag $tag): self
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
-        $node->name = $tag->name;
+        $node->name = new IdentifierNode($tag->name);
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
             switch ($i) {
