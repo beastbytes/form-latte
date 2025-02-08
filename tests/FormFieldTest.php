@@ -105,7 +105,7 @@ EXPECTED
 
     public static function buttonTagProvider(): Generator
     {
-        yield [
+        yield 'button' => [
             'tag' => 'button',
             'expected' => <<<EXPECTED
 <div>
@@ -113,7 +113,7 @@ EXPECTED
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'image' => [
             'tag' => 'image',
             'expected' => <<<EXPECTED
 <div>
@@ -121,7 +121,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'resetButton' => [
             'tag' => 'resetButton',
             'expected' => <<<EXPECTED
 <div>
@@ -129,7 +129,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'submitButton' => [
             'tag' => 'submitButton',
             'expected' => <<<EXPECTED
 <div>
@@ -141,7 +141,7 @@ EXPECTED,
 
     public static function optionsFieldTagProvider(): Generator
     {
-        yield [
+        yield 'checkboxList' => [
             'tag' => 'checkboxList',
             'expected' => <<<EXPECTED
 <div>
@@ -154,7 +154,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'radioList' => [
             'tag' => 'radioList',
             'expected' => <<<EXPECTED
 <div>
@@ -167,7 +167,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'select' => [
             'tag' => 'select',
             'expected' => <<<EXPECTED
 <div>
@@ -184,7 +184,7 @@ EXPECTED,
 
     public static function fieldTagProvider(): Generator
     {
-        yield [
+        yield 'checkbox' => [
             'tag' => 'checkbox',
             'expected' => <<<EXPECTED
 <div>
@@ -192,7 +192,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'date' => [
             'tag' => 'date',
             'expected' => <<<EXPECTED
 <div>
@@ -201,7 +201,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'dateTimeLocal' => [
             'tag' => 'dateTimeLocal',
             'expected' => <<<EXPECTED
 <div>
@@ -210,7 +210,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'email' => [
             'tag' => 'email',
             'expected' => <<<EXPECTED
 <div>
@@ -219,7 +219,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'file' => [
             'tag' => 'file',
             'expected' => <<<EXPECTED
 <div>
@@ -228,7 +228,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'hidden' => [
             'tag' => 'hidden',
             'expected' => '<input type="hidden" id="testform-hidden" name="TestForm[hidden]" value>',
         ];
@@ -241,7 +241,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'password' => [
             'tag' => 'password',
             'expected' => <<<EXPECTED
 <div>
@@ -250,7 +250,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'range' => [
             'tag' => 'range',
             'expected' => <<<EXPECTED
 <div>
@@ -259,7 +259,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'telephone' => [
             'tag' => 'telephone',
             'expected' => <<<EXPECTED
 <div>
@@ -268,7 +268,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'text' => [
             'tag' => 'text',
             'expected' => <<<EXPECTED
 <div>
@@ -277,7 +277,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'textarea' => [
             'tag' => 'textarea',
             'expected' => <<<EXPECTED
 <div>
@@ -286,7 +286,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'time' => [
             'tag' => 'time',
             'expected' => <<<EXPECTED
 <div>
@@ -295,7 +295,7 @@ EXPECTED,
 </div>
 EXPECTED,
         ];
-        yield [
+        yield 'url' => [
             'tag' => 'url',
             'expected' => <<<EXPECTED
 <div>
