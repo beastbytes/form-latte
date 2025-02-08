@@ -92,7 +92,7 @@ class FormFieldTest extends TestBase
 
     public static function buttonGroupTagProvider(): Generator
     {
-        yield [
+        yield 'buttonGroup' => [
             'tag' => 'buttonGroup',
             'expected' => <<<EXPECTED
 <div>
