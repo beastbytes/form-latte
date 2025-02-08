@@ -10,7 +10,7 @@ use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class FormFieldTest extends BaseTest
+class FormFieldTest extends TestBase
 {
     #[Test]
     #[DataProvider('buttonTagProvider')]

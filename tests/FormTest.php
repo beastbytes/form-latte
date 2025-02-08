@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Yiisoft\Html\Tag\Form;
 
-class FormTest extends BaseTest
+class FormTest extends TestBase
 {
     private const CSRF_TOKEN = 'SWo74Kit470YinCd2kYxb3BDNYaBZ5jgV76UV1cEsrUrMniwmtyz8lbNP_jtdgUYPBlC_7Ym07kGx-ExNG-fww==';
     private const CSRF_NAME = 'testCsrf';

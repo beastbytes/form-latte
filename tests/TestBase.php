@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use Yiisoft\Files\FileHelper;
 
-class BaseTest extends TestCase
+class TestBase extends TestCase
 {
     protected const CACHE_DIR = __DIR__ . '/generated/cache';
     protected const TEMPLATE_DIR = __DIR__ . '/generated/template';
