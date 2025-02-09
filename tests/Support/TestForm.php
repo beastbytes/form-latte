@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace BeastBytes\View\Latte\Form\Tests\Support;
 
 use Yiisoft\FormModel\FormModel;
+use Yiisoft\Validator\Rule\Regex;
+use Yiisoft\Validator\Rule\Required;
+use Yiisoft\Validator\RulesProviderInterface;
 
-class TestForm extends FormModel
+class TestForm extends FormModel implements RulesProviderInterface
 {
     private string $checkbox = '1';
     private array $checkboxList = [];
@@ -26,6 +29,16 @@ class TestForm extends FormModel
     private string $textarea = '';
     private string $time = '';
     private string $url = '';
+
+    public function getRules(): array
+    {
+        return [
+            'text' => [
+                new Required(),
+                new Regex(pattern: '/[A-Z]-\d{4}/'),
+            ]
+        ];
+    }
 
     public function getPropertyLabels(): array
     {
