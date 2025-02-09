@@ -8,6 +8,7 @@ use BeastBytes\View\Latte\Form\Config\ConfigTrait;
 use Generator;
 use Latte\Compiler\Nodes\Php\ExpressionNode;
 use Latte\Compiler\Nodes\Php\IdentifierNode;
+use Latte\Compiler\Nodes\Php\Scalar\NullNode;
 use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
@@ -17,8 +18,8 @@ final class ButtonNode extends StatementNode
     use ConfigTrait;
 
     private ExpressionNode $content;
-    private ?ExpressionNode $theme = null;
     private IdentifierNode $name;
+    private ExpressionNode $theme;
 
     public static function create(Tag $tag): self
     {
@@ -31,6 +32,7 @@ final class ButtonNode extends StatementNode
                 default => $tag->name
             }
         );
+        $node->theme = new NullNode();
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
             switch ($i) {
@@ -51,10 +53,8 @@ final class ButtonNode extends StatementNode
     public function print(PrintContext $context): string
     {
         return $context->format(
-            'echo Yiisoft\FormModel\Field::' . $this->name
-            . '(%node, %raw'
-            . ($this->theme !== null ? '%node' : ', %raw')
-            . ') %line;',
+            'echo Yiisoft\FormModel\Field::%node(%node, %raw, %node) %line;',
+            $this->name,
             $this->content,
             $this->getConfig($context),
             $this->theme,
@@ -67,10 +67,8 @@ final class ButtonNode extends StatementNode
      */
     public function &getIterator(): Generator
     {
+        yield $this->name;
         yield $this->content;
-
-        if ($this->theme !== null) {
-            yield $this->theme;
-        }
+        yield $this->theme;
     }
 }
