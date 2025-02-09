@@ -321,7 +321,7 @@ EXPECTED,
     private function createButtonTemplate($tag): void
     {
         if ($tag === 'image') {
-            $template = '{' . $tag . "'$tag@example.com'}";
+            $template = '{' . $tag . " '$tag@example.com'}";
         } else {
             $template = '{' . $tag . " '$tag'}";
         }
