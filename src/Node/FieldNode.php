@@ -25,7 +25,13 @@ final class FieldNode extends StatementNode
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
-        $node->name = new IdentifierNode($tag->name);
+        $node->name = new IdentifierNode(
+            match ($tag->name) {
+                'radio' => 'radioList',
+                'tel' => 'telephone',
+                default => $tag->name
+            }
+        );
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
             switch ($i) {

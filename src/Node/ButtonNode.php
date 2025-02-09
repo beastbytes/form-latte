@@ -24,7 +24,13 @@ final class ButtonNode extends StatementNode
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
-        $node->name = new IdentifierNode($tag->name);
+        $node->name = new IdentifierNode(
+            match ($tag->name) {
+                'reset' => 'resetButton',
+                'submit' => 'submitButton',
+                default => $tag->name
+            }
+        );
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
             switch ($i) {
