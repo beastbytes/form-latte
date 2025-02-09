@@ -57,7 +57,7 @@ final class FieldNode extends StatementNode
     public function print(PrintContext $context): string
     {
         return $context->format(
-            'echo Yiisoft\FormModel\Field::%node(%node, %node, %raw, %node) %line;',
+            'echo Yiisoft\FormModel\Field::%node(%node, %node, %raw, %node) %line;echo "\n";',
             $this->name,
             $this->formModel,
             $this->parameter,
