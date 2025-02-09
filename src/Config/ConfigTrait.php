@@ -17,9 +17,15 @@ trait ConfigTrait
 
         /** @var FilterNode $config */
         foreach ($this->config as $config) {
-            $configuration[] = $config->printSimple($context, "'" . $config->name->name . "'");
+            $args = [];
+
+            foreach ($config->args as $arg) {
+                $args[] = $arg->print($context);
+            }
+
+            $configuration[] = "'" . $config->name->name . "()'=>[" . join(',', $args) . ']';
         }
 
-        return 'BeastBytes\View\Latte\Form\FormExtension::getConfig([' . join(',', $configuration) . '])';
+        return '[' . join(',', $configuration) . ']';
     }
 }
