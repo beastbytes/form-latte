@@ -111,6 +111,7 @@ EXPECTED
 <div>
 <button type="button">button</button>
 </div>
+
 EXPECTED,
         ];
         yield 'image' => [
@@ -119,6 +120,7 @@ EXPECTED,
 <div>
 <input type="image" src="image@example.com">
 </div>
+
 EXPECTED,
         ];
         yield 'resetButton' => [
@@ -127,6 +129,7 @@ EXPECTED,
 <div>
 <button type="reset">resetButton</button>
 </div>
+
 EXPECTED,
         ];
         yield 'submitButton' => [
@@ -135,6 +138,7 @@ EXPECTED,
 <div>
 <button type="submit">submitButton</button>
 </div>
+
 EXPECTED,
         ];
     }
@@ -152,6 +156,7 @@ EXPECTED,
 <label><input type="checkbox" name="TestForm[checkboxList][]" value="three"> Three</label>
 </div>
 </div>
+
 EXPECTED,
         ];
         yield 'radioList' => [
@@ -165,6 +170,7 @@ EXPECTED,
 <label><input type="radio" name="TestForm[radioList]" value="three"> Three</label>
 </div>
 </div>
+
 EXPECTED,
         ];
         yield 'select' => [
@@ -178,6 +184,7 @@ EXPECTED,
 <option value="three">Three</option>
 </select>
 </div>
+
 EXPECTED,
         ];
     }
@@ -190,6 +197,7 @@ EXPECTED,
 <div>
 <input type="hidden" name="TestForm[checkbox]" value="0"><label><input type="checkbox" id="testform-checkbox" name="TestForm[checkbox]" value="1" checked> Checkbox Field</label>
 </div>
+
 EXPECTED,
         ];
         yield 'date' => [
@@ -199,6 +207,7 @@ EXPECTED,
 <label for="testform-date">Date Field</label>
 <input type="date" id="testform-date" name="TestForm[date]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'dateTimeLocal' => [
@@ -208,6 +217,7 @@ EXPECTED,
 <label for="testform-datetimelocal">DateTimeLocal Field</label>
 <input type="datetime-local" id="testform-datetimelocal" name="TestForm[dateTimeLocal]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'email' => [
@@ -217,6 +227,7 @@ EXPECTED,
 <label for="testform-email">Email Field</label>
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'file' => [
@@ -226,11 +237,15 @@ EXPECTED,
 <label for="testform-file">File Field</label>
 <input type="file" id="testform-file" name="TestForm[file]">
 </div>
+
 EXPECTED,
         ];
         yield 'hidden' => [
             'tag' => 'hidden',
-            'expected' => '<input type="hidden" id="testform-hidden" name="TestForm[hidden]" value>',
+            'expected' => <<<EXPECTED
+<input type="hidden" id="testform-hidden" name="TestForm[hidden]" value>
+
+EXPECTED,
         ];
         yield [
             'tag' => 'number',
@@ -239,6 +254,7 @@ EXPECTED,
 <label for="testform-number">Number Field</label>
 <input type="number" id="testform-number" name="TestForm[number]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'password' => [
@@ -248,6 +264,7 @@ EXPECTED,
 <label for="testform-password">Password Field</label>
 <input type="password" id="testform-password" name="TestForm[password]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'range' => [
@@ -257,6 +274,7 @@ EXPECTED,
 <label for="testform-range">Range Field</label>
 <input type="range" id="testform-range" name="TestForm[range]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'telephone' => [
@@ -266,6 +284,7 @@ EXPECTED,
 <label for="testform-telephone">Telephone Field</label>
 <input type="tel" id="testform-telephone" name="TestForm[telephone]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'text' => [
@@ -275,6 +294,7 @@ EXPECTED,
 <label for="testform-text">Text Field</label>
 <input type="text" id="testform-text" name="TestForm[text]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'textarea' => [
@@ -284,6 +304,7 @@ EXPECTED,
 <label for="testform-textarea">Textarea Field</label>
 <textarea id="testform-textarea" name="TestForm[textarea]"></textarea>
 </div>
+
 EXPECTED,
         ];
         yield 'time' => [
@@ -293,6 +314,7 @@ EXPECTED,
 <label for="testform-time">Time Field</label>
 <input type="time" id="testform-time" name="TestForm[time]" value>
 </div>
+
 EXPECTED,
         ];
         yield 'url' => [
@@ -302,6 +324,7 @@ EXPECTED,
 <label for="testform-url">Url Field</label>
 <input type="url" id="testform-url" name="TestForm[url]" value>
 </div>
+
 EXPECTED,
         ];
     }
