@@ -24,6 +24,7 @@ class FormTest extends TestBase
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED;
 
         $this->generateSimpleForm();
@@ -50,6 +51,7 @@ EXPECTED;
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED;
 
         $this->generateCsrfForm();
@@ -91,23 +93,33 @@ EXPECTED;
 
     private function generateSimpleForm(): void
     {
-        $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n";
-        $template .= "{var \$action = 'https://example.com/email/edit'}\n\n";
-        $template .= "{form \$action, post}\n";
-        $template .= "{email \$formModel, 'email'}\n";
-        $template .= '{/form}';
+        $template = <<<'TEMPLATE'
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            {var $action = 'https://example.com/email/edit'}
+            
+            {form $action, post}
+            {email $formModel, 'email'}
+            {/form}
+            TEMPLATE
+        ;
 
         file_put_contents(self::TEMPLATE_DIR . '/form.latte', $template);
     }
 
     private function generateCsrfForm(): void
     {
-        $template = "{varType string \$csrfToken}\n";
-        $template .= "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n";
-        $template .= "{var \$action = 'https://example.com/email/edit'}\n\n";
-        $template .= "{form \$action, post|csrf:\$csrfToken,'" . self::CSRF_NAME . "'}\n";
-        $template .= "{email \$formModel, 'email'}\n";
-        $template .= '{/form}';
+        $template = sprintf(
+            <<<'TEMPLATE'
+            {varType string $csrfToken}
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            {var $action = 'https://example.com/email/edit'}
+            
+            {form $action, post|csrf:$csrfToken,%s}
+            {email $formModel, 'email'}
+            {/form}
+            TEMPLATE,
+            self::CSRF_NAME
+        );
 
         file_put_contents(self::TEMPLATE_DIR . '/csrfForm.latte', $template);
     }
@@ -122,14 +134,20 @@ EXPECTED;
             default => null
         };
 
-        $template = "{varType string \$csrfName}\n";
-        $template .= "{varType string \$csrfToken}\n";
-        $template .= "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n";
-        $template .= "{var \$action = 'https://example.com/email/edit'}\n\n";
-        $template .= "{form \$action, post|csrf:\$csrfToken,\$csrfName|$modifier[0]"
-            . (is_null($value) ? '' : ":$value") . "}\n";
-        $template .= "{email \$formModel, 'email'}\n";
-        $template .= '{/form}';
+        $template = sprintf(
+            <<<'TEMPLATE'
+            {varType string $csrfName}
+            {varType string $csrfToken}
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            {var $action = 'https://example.com/email/edit'}
+            
+            {form $action, post|csrf:$csrfToken,$csrfName|%s%s}
+            {email $formModel, 'email'}
+            {/form}
+            TEMPLATE,
+            $modifier[0],
+            is_null($value) ? '' : ":$value"
+        );
 
         file_put_contents(self::TEMPLATE_DIR . '/'
             . join('_', $modifier) . '_modifierForm.latte', $template)
@@ -152,6 +170,7 @@ EXPECTED;
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'get 2' => [
@@ -165,6 +184,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'post 1' => [
@@ -178,6 +198,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'post 2' => [
@@ -191,6 +212,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'acceptCharset' => [
@@ -204,6 +226,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'action' => [
@@ -217,6 +240,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'autocomplete' => [
@@ -230,6 +254,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'enctype 1' => [
@@ -243,6 +268,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'enctypeApplicationXWwwFormUrlencoded' => [
@@ -256,6 +282,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'enctypeMultipartFormData' => [
@@ -269,6 +296,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'enctypeTextPlain' => [
@@ -282,6 +310,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'method' => [
@@ -295,6 +324,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'noValidate' => [
@@ -308,6 +338,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
         yield 'target' => [
@@ -321,6 +352,7 @@ EXPECTED,
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
+
 EXPECTED,
         ];
     }
