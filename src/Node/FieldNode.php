@@ -6,6 +6,7 @@ namespace BeastBytes\View\Latte\Form\Node;
 
 use BeastBytes\View\Latte\Form\Config\ConfigTrait;
 use Generator;
+use Latte\CompileException;
 use Latte\Compiler\Nodes\Php\ExpressionNode;
 use Latte\Compiler\Nodes\Php\IdentifierNode;
 use Latte\Compiler\Nodes\Php\Scalar\NullNode;
@@ -22,6 +23,9 @@ final class FieldNode extends StatementNode
     private ExpressionNode $parameter;
     private ExpressionNode $theme;
 
+    /**
+     * @throws CompileException
+     */
     public static function create(Tag $tag): self
     {
         $tag->expectArguments();
@@ -57,7 +61,10 @@ final class FieldNode extends StatementNode
     public function print(PrintContext $context): string
     {
         return $context->format(
-            'echo Yiisoft\FormModel\Field::%node(%node, %node, %raw, %node) %line;echo "\n";',
+            <<<'MASK'
+            echo Yiisoft\FormModel\Field::%node(%node, %node, %raw, %node) %line;
+            echo "\n";
+            MASK,
             $this->name,
             $this->formModel,
             $this->parameter,

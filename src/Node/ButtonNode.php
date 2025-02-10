@@ -53,7 +53,10 @@ final class ButtonNode extends StatementNode
     public function print(PrintContext $context): string
     {
         return $context->format(
-            'echo Yiisoft\FormModel\Field::%node(%node, %raw, %node) %line;echo "\n";',
+            <<<'MASK'
+            echo Yiisoft\FormModel\Field::%node(%node, %raw, %node) %line;
+            echo "\n";
+            MASK,
             $this->name,
             $this->content,
             $this->getConfig($context),
