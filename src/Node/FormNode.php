@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BeastBytes\View\Latte\Form\Node;
 
 use Generator;
+use Latte\CompileException;
 use Latte\Compiler\Node;
 use Latte\Compiler\Nodes\AreaNode;
 use Latte\Compiler\Nodes\Php\Expression\ArrayNode;
@@ -20,17 +21,21 @@ use Latte\Compiler\TemplateParser;
 class FormNode extends StatementNode
 {
     public ExpressionNode $action;
-    public ?ExpressionNode $attributes = null;
+    public ArrayNode $attributes;
     public ?ModifierNode $config = null;
     public string $configuration = '';
     public AreaNode $content;
     public string $csrf = '';
     public ?ExpressionNode $method = null;
 
+    /**
+     * @throws CompileException
+     */
     public static function create(Tag $tag, TemplateParser $parser): Generator
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
+        $node->attributes = new ArrayNode();
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
             switch ($i) {
@@ -62,13 +67,12 @@ class FormNode extends StatementNode
             echo $L_form%raw%raw->open();
             echo "\n";
             %node
-            echo "\n";
             echo $L_form->close();
             echo "\n";
-MASK,
+            MASK,
             $this->action,
             $this->method,
-            $this->attributes ?? new ArrayNode(),
+            $this->attributes,
             $this->position,
             $this->csrf,
             $this->configuration,
@@ -119,11 +123,7 @@ MASK,
     {
         yield $this->action;
         yield $this->method;
-
-        if ($this->attributes !== null) {
-            yield $this->attributes;
-        }
-
+        yield $this->attributes;
         yield $this->content;
     }
 }
