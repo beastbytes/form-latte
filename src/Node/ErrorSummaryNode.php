@@ -6,7 +6,10 @@ namespace BeastBytes\View\Latte\Form\Node;
 
 use BeastBytes\View\Latte\Form\Config\ConfigTrait;
 use Generator;
+use Latte\CompileException;
 use Latte\Compiler\Nodes\Php\ExpressionNode;
+use Latte\Compiler\Nodes\Php\IdentifierNode;
+use Latte\Compiler\Nodes\Php\Scalar\NullNode;
 use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
@@ -16,12 +19,18 @@ final class ErrorSummaryNode extends StatementNode
     use ConfigTrait;
 
     public ExpressionNode $formModel;
-    private ?ExpressionNode $theme;
+    private IdentifierNode $name;
+    private ExpressionNode $theme;
 
+    /**
+     * @throws CompileException
+     */
     public static function create(Tag $tag): self
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
+        $node->name = new IdentifierNode($tag->name);
+        $node->theme = new NullNode();
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
             switch ($i) {
@@ -42,11 +51,13 @@ final class ErrorSummaryNode extends StatementNode
     public function print(PrintContext $context): string
     {
         return $context->format(
-            'echo Yiisoft\FormModel\Field::errorSummary(%node, %raw'
-            . ($this->theme !== null ? '%node' : ', %raw')
-            . ') %line;',
+            <<<'MASK'
+            'echo Yiisoft\FormModel\Field::%node(%node, %raw, %node) %line;'
+            'echo "\n";'
+            MASK,
+            $this->name,
             $this->formModel,
-            $this->getConfig(),
+            $this->getConfig($context),
             $this->theme,
         );
     }
@@ -56,10 +67,8 @@ final class ErrorSummaryNode extends StatementNode
      */
     public function &getIterator(): Generator
     {
+        yield $this->name;
         yield $this->formModel;
-
-        if ($this->theme !== null) {
-            yield $this->theme;
-        }
+        yield $this->theme;
     }
 }
