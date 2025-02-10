@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BeastBytes\View\Latte\Form\Tests\Support;
 
+use Yiisoft\Form\Field\Email;
 use Yiisoft\FormModel\FormModel;
 use Yiisoft\Validator\Rule\Regex;
 use Yiisoft\Validator\Rule\Required;
@@ -33,6 +34,10 @@ class TestForm extends FormModel implements RulesProviderInterface
     public function getRules(): array
     {
         return [
+            'email' => [
+                new Required(),
+                new Email(),
+            ],
             'text' => [
                 new Required(),
                 new Regex(pattern: '/[A-Z]-\d{4}/'),
