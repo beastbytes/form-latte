@@ -12,6 +12,8 @@ use PHPUnit\Framework\Attributes\Test;
 
 class FormFieldTest extends TestBase
 {
+    private const LEGEND = 'Test Legend';
+
     #[Test]
     #[DataProvider('buttonTagProvider')]
     public function button(string $tag, string $expected): void
@@ -50,6 +52,27 @@ class FormFieldTest extends TestBase
             ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
 
         $this->assertSame($expected, $html);
+    }
+
+    #[Test]
+    public function errorSummary(): void
+    {
+
+    }
+
+    #[Test]
+    #[DataProvider('fieldsetProvider')]
+    public function fieldset(string $tag, string $expected): void
+    {
+        $formModel = new TestForm();
+        $this->createFieldsetTemplate();
+
+        $html = $this
+            ->latte
+            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
+
+        $this->assertSame($expected, $html);
+
     }
 
     #[Test]
@@ -99,6 +122,7 @@ class FormFieldTest extends TestBase
 <button type="reset">Reset</button>
 <button type="submit">Send</button>
 </div>
+
 EXPECTED
         ];
     }
@@ -247,7 +271,7 @@ EXPECTED,
 
 EXPECTED,
         ];
-        yield [
+        yield 'number' => [
             'tag' => 'number',
             'expected' => <<<EXPECTED
 <div>
@@ -329,14 +353,42 @@ EXPECTED,
         ];
     }
 
+    public static function fieldsetProvider(): Generator
+    {
+        yield 'fieldset' => [
+            'tag' => 'fieldset',
+            'expected' => sprintf(
+                <<<'EXPECTED'
+<div>
+<fieldset>
+<legend>%s</legend>
+<div>
+<label for="testform-text">Text Field</label>
+<input type="text" id="testform-text" name="TestForm[text]" value>
+</div>
+</fieldset>
+</div>
+
+EXPECTED,
+                self::LEGEND
+            ),
+        ];
+    }
+
     private function createButtonGroupTemplate($tag): void
     {
-        $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n\n";
-        $template .= "{var \$buttons = [
-            Yiisoft\Html\Html::resetButton('Reset'),
-            Yiisoft\Html\Html::submitButton('Send'),
-        ]}\n\n";
-        $template .= '{' . $tag . '|buttons: ...$buttons}';
+        $template = sprintf(
+            <<<'TEMPLATE'
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            {var $buttons = [
+                Yiisoft\Html\Html::resetButton('Reset'),
+                Yiisoft\Html\Html::submitButton('Send'),
+            ]}
+            
+            {%s|buttons: ...$buttons}
+            TEMPLATE,
+            $tag
+        );
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
@@ -344,35 +396,61 @@ EXPECTED,
     private function createButtonTemplate($tag): void
     {
         if ($tag === 'image') {
-            $template = '{' . $tag . " '$tag@example.com'}";
+            $template = <<<'TEMPLATE'
+            {%1$s '%1$s@example.com'}
+            TEMPLATE;
         } else {
-            $template = '{' . $tag . " '$tag'}";
+            $template = <<<'TEMPLATE'
+            {%1$s '%1$s'}
+            TEMPLATE;
         }
+
+        $template = sprintf($template, $tag);
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 
     private function createFieldTemplate($tag): void
     {
-        $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n\n";
-        $template .= '{' . $tag . " \$formModel, '$tag'}";
+        $template = sprintf(
+            <<<'TEMPLATE'
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            
+            {%1$s $formModel, '%1$s'}
+            TEMPLATE,
+            $tag
+        );
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 
+    private function createFieldsetTemplate(): void
+    {
+        $template = sprintf(
+            <<<'TEMPLATE'
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            
+            {fieldset|legend:'%s'}
+            {text $formModel, 'text'}
+            {/fieldset}
+            TEMPLATE,
+        self::LEGEND
+        );
+
+        file_put_contents(self::TEMPLATE_DIR . "/fieldset.latte", $template);
+    }
+
     private function createOptionsFieldTemplate($tag): void
     {
-        $template = "{varType Yiisoft\\FormModel\\FormModel \$formModel}\n\n";
-        $template .= "{var \$options = ['one'=>'One','two'=>'Two','three'=>'Three']}\n\n";
-        $template .= '{' . $tag . " \$formModel, '$tag'|";
-
-        if ($tag === 'select') {
-            $template .= 'optionsData:$options';
-        } else {
-            $template .= 'items:$options';
-        }
-
-        $template .= '}';
+        $template = sprintf(
+            <<<'TEMPLATE'
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            {var $options = ['one'=>'One','two'=>'Two','three'=>'Three']}
+            
+            {%1$s $formModel, '%1$s'|%2$s}
+            TEMPLATE,
+            $tag, ($tag === 'select' ? 'optionsData:$options' : 'items:$options')
+        );
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
