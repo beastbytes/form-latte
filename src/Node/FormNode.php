@@ -13,6 +13,7 @@ use Latte\Compiler\Nodes\Php\ExpressionNode;
 use Latte\Compiler\Nodes\Php\FilterNode;
 use Latte\Compiler\Nodes\Php\IdentifierNode;
 use Latte\Compiler\Nodes\Php\ModifierNode;
+use Latte\Compiler\Nodes\Php\Scalar\StringNode;
 use Latte\Compiler\Nodes\StatementNode;
 use Latte\Compiler\PrintContext;
 use Latte\Compiler\Tag;
@@ -26,7 +27,7 @@ class FormNode extends StatementNode
     public string $configuration = '';
     public AreaNode $content;
     public string $csrf = '';
-    public ?ExpressionNode $method = null;
+    public ExpressionNode $method;
 
     /**
      * @throws CompileException
@@ -35,6 +36,7 @@ class FormNode extends StatementNode
     {
         $tag->expectArguments();
         $node = $tag->node = new self;
+        $node->method = new StringNode('post');
         $node->attributes = new ArrayNode();
 
         foreach ($tag->parser->parseArguments() as $i => $argument) {
