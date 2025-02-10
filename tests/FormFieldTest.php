@@ -7,11 +7,16 @@ namespace BeastBytes\View\Latte\Form\Tests;
 use BeastBytes\View\Latte\Form\FormExtension;
 use BeastBytes\View\Latte\Form\Tests\Support\TestForm;
 use Generator;
+use phpDocumentor\Reflection\Types\Self_;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
+use Yiisoft\Validator\Result;
+use Yiisoft\Validator\Validator;
 
 class FormFieldTest extends TestBase
 {
+    private const ERROR_SUMMARY_FOOTER = 'Error Summary Footer';
+    private const ERROR_SUMMARY_HEADER = 'Error Summary Header';
     private const LEGEND = 'Test Legend';
 
     #[Test]
@@ -55,8 +60,20 @@ class FormFieldTest extends TestBase
     }
 
     #[Test]
-    public function errorSummary(): void
+    #[DataProvider('errorSummaryProvider')]
+    public function errorSummary(string $name, string $tag, string $expected): void
     {
+        $formModel = new TestForm();
+        $validator = new Validator();
+        $validator->validate($formModel);
+
+        $this->createErrorSummaryTemplate($name, $tag);
+
+        $html = $this
+            ->latte
+            ->renderToString(self::TEMPLATE_DIR . "/$name.latte", ['formModel' => $formModel]);
+
+        $this->assertSame($expected, $html);
 
     }
 
@@ -72,7 +89,6 @@ class FormFieldTest extends TestBase
             ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
 
         $this->assertSame($expected, $html);
-
     }
 
     #[Test]
@@ -353,6 +369,56 @@ EXPECTED,
         ];
     }
 
+    public static function errorSummaryProvider(): Generator
+    {
+        yield 'errorSummary' => [
+            'name' => 'errorSummary',
+            'tag' => 'errorSummary',
+            'expected' => <<<'EXPECTED'
+<div>
+<ul>
+<li>Email cannot be blank.</li>
+<li>Email is not a valid email address.</li>
+<li>Text cannot be blank.</li>
+<li>Text is invalid.</li>
+</ul>
+</div>
+
+EXPECTED,
+        ];
+        yield 'errorSummary Only First' => [
+            'name' => 'errorSummaryOnlyFirst',
+            'tag' => 'errorSummary',
+            'expected' => <<<'EXPECTED'
+<div>
+<ul>
+<li>Email cannot be blank.</li>
+<li>Text cannot be blank.</li>
+</ul>
+</div>
+
+EXPECTED,
+        ];
+        yield 'errorSummary Header Footer' => [
+            'name' => 'errorSummaryHeaderFooter',
+            'tag' => 'errorSummary',
+            'expected' => sprintf(<<<'EXPECTED'
+<div>
+<div>%s</div>
+<ul>
+<li>Email cannot be blank.</li>
+<li>Text cannot be blank.</li>
+</ul>
+<div>%s</div>
+</div>
+
+EXPECTED,
+                self::ERROR_SUMMARY_HEADER,
+                self::ERROR_SUMMARY_FOOTER,
+            ),
+        ];
+    }
+
     public static function fieldsetProvider(): Generator
     {
         yield 'fieldset' => [
@@ -424,6 +490,27 @@ EXPECTED,
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 
+    private function createErrorSummaryTemplate(string $name, string $tag): void
+    {
+        $template = sprintf(<<<'TEMPLATE'
+            {varType Yiisoft\FormModel\FormModel $formModel}
+            
+            {errorSummary $formModel%s}
+            TEMPLATE,
+            match ($name) {
+                'errorSummaryOnlyFirst' => '|onlyFirst',
+                'errorSummaryHeaderFooter' => sprintf(
+                    '|onlyFirst|header:%s|footer:%s',
+                    "'" . self::ERROR_SUMMARY_HEADER . "'",
+                    "'" . self::ERROR_SUMMARY_FOOTER . "'"
+                ),
+                default => ''
+            }
+        );
+
+        file_put_contents(self::TEMPLATE_DIR . "/$name.latte", $template);
+    }
+
     private function createFieldsetTemplate(): void
     {
         $template = sprintf(
@@ -434,10 +521,10 @@ EXPECTED,
             {text $formModel, 'text'}
             {/fieldset}
             TEMPLATE,
-        self::LEGEND
+            self::LEGEND
         );
 
-        file_put_contents(self::TEMPLATE_DIR . "/fieldset.latte", $template);
+        file_put_contents(self::TEMPLATE_DIR . '/fieldset.latte', $template);
     }
 
     private function createOptionsFieldTemplate($tag): void

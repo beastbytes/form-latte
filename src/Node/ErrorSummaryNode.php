@@ -52,8 +52,8 @@ final class ErrorSummaryNode extends StatementNode
     {
         return $context->format(
             <<<'MASK'
-            'echo Yiisoft\FormModel\Field::%node(%node, %raw, %node) %line;'
-            'echo "\n";'
+            echo Yiisoft\FormModel\Field::%node(%node, %raw, %node) %line;
+            echo "\n";
             MASK,
             $this->name,
             $this->formModel,
