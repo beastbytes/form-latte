@@ -21,7 +21,7 @@ final class FormExtension extends Extension
             'dateTimeLocal' => Node\FieldNode::create(...),
             'email' => Node\FieldNode::create(...),
             'errorSummary' => Node\ErrorSummaryNode::create(...),
-            'fieldset' => Node\GroupNode::create(...),
+            'fieldset' => Node\FieldsetNode::create(...),
             'file' => Node\FieldNode::create(...),
             'form' => Node\FormNode::create(...),
             'hidden' => Node\FieldNode::create(...),
