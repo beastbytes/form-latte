@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace BeastBytes\View\Latte\Form\Tests\Support;
 
-use Yiisoft\Form\Field\Email;
 use Yiisoft\FormModel\FormModel;
+use Yiisoft\Validator\Rule\Email;
 use Yiisoft\Validator\Rule\Regex;
 use Yiisoft\Validator\Rule\Required;
 use Yiisoft\Validator\RulesProviderInterface;
