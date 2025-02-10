@@ -64,6 +64,7 @@ class FormNode extends StatementNode
             %node
             echo "\n";
             echo $L_form->close();
+            echo "\n";
 MASK,
             $this->action,
             $this->method,
