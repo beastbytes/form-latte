@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LattePluginSettings">
+    <customMacroSettings>
+      <list>
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="button" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="?string $theme" DeprecatedMessage="" MacroName="buttonGroup" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="checkbox" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="checkboxList" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="color" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="date" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="dateTimeLocal" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="email" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, ?string $theme" DeprecatedMessage="" MacroName="errorSummary" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="?string $theme" DeprecatedMessage="" MacroName="fieldset" MacroType="PAIR" MultiLine="true" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="file" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $action, ?string $method, ?array $attributes" DeprecatedMessage="" MacroName="form" MacroType="PAIR" MultiLine="true" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="hidden" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="imageButton" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="month" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="number" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="password" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="radio" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="radioList" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="range" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="reset" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="resetButton" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="search" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="select" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="submit" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="submitButton" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="tel" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="telephone" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="text" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="textArea" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="time" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="week" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="url" />
+      </list>
+    </customMacroSettings>
+    <customModifierSettings>
+      <list>
+        <LatteFilterSettings ModifierDescription="Form&#10;Cross-site request forgery CSRF $&#10;Adds a hidden field to the form &#10;with a CSRF token" ModifierHelp="string $csrf, string $name" ModifierDoubleInsert=":" ModifierName="csrf" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Form id" ModifierHelp="string $id" ModifierDoubleInsert=":" ModifierName="id" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Sets form submission method to GET" ModifierHelp="?string $url" ModifierDoubleInsert=":" ModifierName="get" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Sets form submission method to POST" ModifierHelp="?string $url" ModifierDoubleInsert=":" ModifierName="post" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Character encoding to use for form submission" ModifierHelp="string $charset" ModifierDoubleInsert=":" ModifierName="post" />
+        <LatteFilterSettings ModifierDescription="Form&#10;The URL to use for form submission" ModifierHelp="string $url" ModifierDoubleInsert=":" ModifierName="action" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Default setting for autofill feature for controls in the form" ModifierHelp="bool $autocomplete=true" ModifierDoubleInsert=":" ModifierName="autocomplete" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Encoding type to use for form submission" ModifierHelp="string $enctype" ModifierDoubleInsert=":" ModifierName="enctype" />
+        <LatteFilterSettings ModifierDescription="Form&#10;All characters are encoded on form submission" ModifierHelp="" ModifierDoubleInsert=":" ModifierName="enctypeApplicationXWwwFormUrlencoded" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Allows file &lt;input&gt; elements $ to upload file data" ModifierHelp="" ModifierDoubleInsert=":" ModifierName="enctypeMultipartFormData" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Sends data without any encoding at all. Not recommended" ModifierHelp="" ModifierDoubleInsert=":" ModifierName="enctypeTextPlain" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Sets form submission method" ModifierHelp="string $method" ModifierDoubleInsert=":" ModifierName="method" />
+        <LatteFilterSettings ModifierDescription="Form&#10;If true, the form is not validated during submission" ModifierHelp="bool $noValidate=true" ModifierDoubleInsert=":" ModifierName="noValidate" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Browsing context for form submission" ModifierHelp="string $target" ModifierDoubleInsert=":" ModifierName="noValidate" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Add a set of attributes to existing tag attributes&#10;Same named attributes are replaced" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addAttributes" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Replace attributes with a new set" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="attributes" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Union attributes with a new set." ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="unionAttributes" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Set an attribute" ModifierHelp="string $name, mixed $value" ModifierDoubleInsert=":" ModifierName="attribute" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Set the id attribute" ModifierHelp="string $id" ModifierDoubleInsert=":" ModifierName="id" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Add CSS class(es)" ModifierHelp="BackedEnum|string ...$class" ModifierDoubleInsert=":" ModifierName="addClass" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Replace current CSS classes with a new set" ModifierHelp="BackedEnum|string ...$class" ModifierDoubleInsert=":" ModifierName="class" />
+      </list>
+    </customModifierSettings>
+  </component>
+</project>
