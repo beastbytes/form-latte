@@ -54,13 +54,137 @@
         <LatteFilterSettings ModifierDescription="Form&#10;Sets form submission method" ModifierHelp="string $method" ModifierDoubleInsert=":" ModifierName="method" />
         <LatteFilterSettings ModifierDescription="Form&#10;If true, the form is not validated during submission" ModifierHelp="bool $noValidate=true" ModifierDoubleInsert=":" ModifierName="noValidate" />
         <LatteFilterSettings ModifierDescription="Form&#10;Browsing context for form submission" ModifierHelp="string $target" ModifierDoubleInsert=":" ModifierName="noValidate" />
-        <LatteFilterSettings ModifierDescription="Form&#10;Add a set of attributes to existing tag attributes&#10;Same named attributes are replaced" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addAttributes" />
-        <LatteFilterSettings ModifierDescription="Form&#10;Replace attributes with a new set" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="attributes" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Add attributes&#10;Same named attributes are replaced" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addAttributes" />
+        <LatteFilterSettings ModifierDescription="Form&#10;Set attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="attributes" />
         <LatteFilterSettings ModifierDescription="Form&#10;Union attributes with a new set." ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="unionAttributes" />
         <LatteFilterSettings ModifierDescription="Form&#10;Set an attribute" ModifierHelp="string $name, mixed $value" ModifierDoubleInsert=":" ModifierName="attribute" />
         <LatteFilterSettings ModifierDescription="Form&#10;Set the id attribute" ModifierHelp="string $id" ModifierDoubleInsert=":" ModifierName="id" />
         <LatteFilterSettings ModifierDescription="Form&#10;Add CSS class(es)" ModifierHelp="BackedEnum|string ...$class" ModifierDoubleInsert=":" ModifierName="addClass" />
         <LatteFilterSettings ModifierDescription="Form&#10;Replace current CSS classes with a new set" ModifierHelp="BackedEnum|string ...$class" ModifierDoubleInsert=":" ModifierName="class" />
+        <LatteFilterSettings ModifierDescription="Button Group&#10;Buttons to render" ModifierHelp="ButtonTag ...$buttons" ModifierDoubleInsert=":" ModifierName="buttons" />
+        <LatteFilterSettings ModifierDescription="Button Group&#10;Array of buttons. Each button is an array with label as first element and additional name-value pairs as attributes of button" ModifierHelp="array $data, bool $encode = true" ModifierDoubleInsert=":" ModifierName="buttonsData" />
+        <LatteFilterSettings ModifierDescription="Button Group&#10;Set attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="buttonsAttributes" />
+        <LatteFilterSettings ModifierDescription="Button Group&#10;Add attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addButtonsAttributes" />
+        <LatteFilterSettings ModifierDescription="Button Group&#10;Separator between buttons" ModifierHelp="string $separator" ModifierDoubleInsert=":" ModifierName="separator" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Disabled state of the control" ModifierHelp="bool $disabled = true" ModifierDoubleInsert=":" ModifierName="disabled" />
+        <LatteFilterSettings ModifierDescription="Control&#10;The form the control is associated with" ModifierHelp="string $formId" ModifierDoubleInsert=":" ModifierName="form" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Identifies the element (or elements) that describes the control" ModifierHelp="string ...$value" ModifierDoubleInsert=":" ModifierName="ariaDescribedBy" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Aria label for the control" ModifierHelp="string $value" ModifierDoubleInsert=":" ModifierName="ariaLabel" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Give the control focus on page load. Only one control should have autofocus=true" ModifierHelp="bool $autofocus = true" ModifierDoubleInsert=":" ModifierName="autofocus" />
+        <LatteFilterSettings ModifierDescription="Checkbox&#10;Whether the control is enclosed by its label" ModifierHelp="bool $enclosedByLabel" ModifierDoubleInsert=":" ModifierName="enclosedByLabel" />
+        <LatteFilterSettings ModifierDescription="Image&#10;Image alt content" ModifierHelp="string $value" ModifierDoubleInsert=":" ModifierName="alt" />
+        <LatteFilterSettings ModifierDescription="Image&#10;Image width" ModifierHelp="int|string|Stringable|null $width" ModifierDoubleInsert=":" ModifierName="width" />
+        <LatteFilterSettings ModifierDescription="Image&#10;Image height" ModifierHelp="int|string|Stringable|null $height" ModifierDoubleInsert=":" ModifierName="height" />
+        <LatteFilterSettings ModifierDescription="Image&#10;Image source" ModifierHelp="string $url" ModifierDoubleInsert=":" ModifierName="src" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;" ModifierHelp="CheckboxLabelPlacement $placement" ModifierDoubleInsert=":" ModifierName="labelPlacement" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;" ModifierHelp="?string $value" ModifierDoubleInsert=":" ModifierName="inputLabel" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Set attributes of the input label" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="inputLabelAttributes" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Add attributes to the input label" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addInputLabelAttributes" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Id of the input label" ModifierHelp="?string $id" ModifierDoubleInsert=":" ModifierName="inputLabelId" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Set class(es) of the input label" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="inputLabelClass" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Add class(es) to the input label" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addInputLabelClass" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Whether to encode the input label" ModifierHelp="bool $encode" ModifierDoubleInsert=":" ModifierName="inputLabelEncode" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;" ModifierHelp="bool|float|int|string|Stringable|null $value" ModifierDoubleInsert=":" ModifierName="inputValue" />
+        <LatteFilterSettings ModifierDescription="CheckboxList&#10;Value submitted if control not checked" ModifierHelp="bool|float|int|string|Stringable|null $value" ModifierDoubleInsert=":" ModifierName="uncheckValue" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="?string $name" ModifierDoubleInsert=":" ModifierName="radioWrapTag" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="radioWrapAttributes" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="radioWrapClass" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addRadioWrapClass" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="radioAttributes" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addRadioAttributes" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="radioLabelAttributes" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addRadioLabelAttributes" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="bool $wrap" ModifierDoubleInsert=":" ModifierName="radioLabelWrap" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="individualInputAttributes" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addIndividualInputAttributes" />
+        <LatteFilterSettings ModifierDescription="CheckboxList, RadioList&#10;" ModifierHelp="array $items, bool $encodeLabels = true" ModifierDoubleInsert=":" ModifierName="items" />
+        <LatteFilterSettings ModifierDescription="RadioList&#10;" ModifierHelp="array $values, bool $encodeLabels = true" ModifierDoubleInsert=":" ModifierName="itemsFromValues" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Maximum value of the control" ModifierHelp="?string $value" ModifierDoubleInsert=":" ModifierName="max" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Minimum value of the control" ModifierHelp="?string $value" ModifierDoubleInsert=":" ModifierName="min" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Id of element(s) describing the control" ModifierHelp="?string ...$value" ModifierDoubleInsert=":" ModifierName="ariaDescribedBy" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Tab index of the control" ModifierHelp="?int $value" ModifierDoubleInsert=":" ModifierName="tabIndex" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Readonly state of the control" ModifierHelp="bool $value = true" ModifierDoubleInsert=":" ModifierName="readonly" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Required state of the control" ModifierHelp="bool $value = true" ModifierDoubleInsert=":" ModifierName="required" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Maximium length" ModifierHelp="?int $value" ModifierDoubleInsert=":" ModifierName="maxlength" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Minimium length" ModifierHelp="?int $value" ModifierDoubleInsert=":" ModifierName="minlength" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Whether multiple entries/selections are allowed" ModifierHelp="bool $value = true" ModifierDoubleInsert=":" ModifierName="multiple" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Pattern user input must match" ModifierHelp="?string $value" ModifierDoubleInsert=":" ModifierName="pattern" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Size of the control" ModifierHelp="?int $value" ModifierDoubleInsert=":" ModifierName="size" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Step size for the control" ModifierHelp="float|int|string|Stringable|null $value" ModifierDoubleInsert=":" ModifierName="step" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Id of element providing permitted values" ModifierHelp="?string $id" ModifierDoubleInsert=":" ModifierName="list" />
+        <LatteFilterSettings ModifierDescription="Select&#10;Items/Option for select" ModifierHelp="Optgroup|Option ...$items" ModifierDoubleInsert=":" ModifierName="items" />
+        <LatteFilterSettings ModifierDescription="Select&#10;Items/Option for select" ModifierHelp="Option ...$options" ModifierDoubleInsert=":" ModifierName="options" />
+        <LatteFilterSettings ModifierDescription="Select&#10;Data used to create options for select" ModifierHelp="array $data, bool $encode = true, array $optionsAttributes = [], array $groupsAttributes = []" ModifierDoubleInsert=":" ModifierName="optionsData" />
+        <LatteFilterSettings ModifierDescription="Textarea&#10;Name of control indicating the element's directionality" ModifierHelp="string $value" ModifierDoubleInsert=":" ModifierName="dirname" />
+        <LatteFilterSettings ModifierDescription="Textarea&#10;Columns" ModifierHelp="int $value" ModifierDoubleInsert=":" ModifierName="cols" />
+        <LatteFilterSettings ModifierDescription="Textarea&#10;Rows" ModifierHelp="int $value" ModifierDoubleInsert=":" ModifierName="rows" />
+        <LatteFilterSettings ModifierDescription="Textarea&#10;Wrap position" ModifierHelp="string $value" ModifierDoubleInsert=":" ModifierName="wrap" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Input Id" ModifierHelp="?string $inputId" ModifierDoubleInsert=":" ModifierName="inputId" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Whether the input should have an id attribute" ModifierHelp="bool $value" ModifierDoubleInsert=":" ModifierName="shouldSetInputId" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set input attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="inputAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add input attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addInputAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set input class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="inputClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add input class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addInputClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Whether to encode content" ModifierHelp="?bool $encode" ModifierDoubleInsert=":" ModifierName="encodeContent" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Whether to double encode content" ModifierHelp="bool $doubleEncode" ModifierDoubleInsert=":" ModifierName="doubleEncodeContent" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Control content" ModifierHelp="string|Stringable ...$content" ModifierDoubleInsert=":" ModifierName="content" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Whether to encode content" ModifierHelp="bool $value" ModifierDoubleInsert=":" ModifierName="encode" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Whether to show only the first error for each property" ModifierHelp="bool $value = true" ModifierDoubleInsert=":" ModifierName="onlyFirst" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Properties to include in error list" ModifierHelp="string ...$names" ModifierDoubleInsert=":" ModifierName="onlyProperties" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Show only error common to all properties" ModifierHelp="" ModifierDoubleInsert=":" ModifierName="onlyCommonErrors" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set footer content" ModifierHelp="string $value" ModifierDoubleInsert=":" ModifierName="footer" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set footer attributes" ModifierHelp="array $values" ModifierDoubleInsert=":" ModifierName="footerAttributes" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set header content" ModifierHelp="string $value" ModifierDoubleInsert=":" ModifierName="header" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set the header tag" ModifierHelp="?string $tag" ModifierDoubleInsert=":" ModifierName="headerTag" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Whether to encode the header" ModifierHelp="bool $encode" ModifierDoubleInsert=":" ModifierName="headerEncode" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set header attributes" ModifierHelp="array $values" ModifierDoubleInsert=":" ModifierName="headerAttributes" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set error list attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="listAttributes" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Add error list class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addListClass" />
+        <LatteFilterSettings ModifierDescription="Error summary&#10;Set error list class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="listClass" />
+        <LatteFilterSettings ModifierDescription="Fieldset&#10;Legend content and attributes" ModifierHelp="string|Stringable|null $content, array $attributes = []" ModifierDoubleInsert=":" ModifierName="legend" />
+        <LatteFilterSettings ModifierDescription="Fieldset&#10;Tag for the legend" ModifierHelp="?Legend $legend" ModifierDoubleInsert=":" ModifierName="legendTag" />
+        <LatteFilterSettings ModifierDescription="Fieldset&#10;Name of the fieldset" ModifierHelp="?string $name" ModifierDoubleInsert=":" ModifierName="name" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Tag for the control's container tag" ModifierHelp="string $tag" ModifierDoubleInsert=":" ModifierName="containerTag" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add control container tag attributes&#10;Same named attributes are replaced" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addContainerAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set control container tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="containerAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set control container tag id" ModifierHelp="string $id" ModifierDoubleInsert=":" ModifierName="containerId" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set control container tag class(es)" ModifierHelp="string ...$class" ModifierDoubleInsert=":" ModifierName="containerClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add control container tag class(es)" ModifierHelp="string ...$class" ModifierDoubleInsert=":" ModifierName="addContainerClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Extra tokens for templates" ModifierHelp="array $tokens" ModifierDoubleInsert=":" ModifierName="tokens" />
+        <LatteFilterSettings ModifierDescription="Control&#10;An extra token for templates" ModifierHelp="string $token, string|Stringable $value" ModifierDoubleInsert=":" ModifierName="token" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Template for the control" ModifierHelp="string $template" ModifierDoubleInsert=":" ModifierName="template" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Template for start of control" ModifierHelp="string $template" ModifierDoubleInsert=":" ModifierName="templateBegin" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Template for end of control" ModifierHelp="string $template" ModifierDoubleInsert=":" ModifierName="templateEnd" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Whether to hide the control's label" ModifierHelp="?bool $hide = true" ModifierDoubleInsert=":" ModifierName="hideLabel" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Tag for the input's container tag" ModifierHelp="?string $tag" ModifierDoubleInsert=":" ModifierName="inputContainerTag" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set input container tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="inputContainerAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add input container tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addInputContainerAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set input container tag class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="inputContainerClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add input container tag class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addInputContainerClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Text rendered before the input" ModifierHelp="string|Stringable $content" ModifierDoubleInsert=":" ModifierName="beforeInput" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Text rendered after the input" ModifierHelp="string|Stringable $content" ModifierDoubleInsert=":" ModifierName="afterInput" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Label configuration" ModifierHelp="array $config" ModifierDoubleInsert=":" ModifierName="labelConfig" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set label attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="labelAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add label attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addLabelAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Label id" ModifierHelp="?string $id" ModifierDoubleInsert=":" ModifierName="labelId" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set label class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="labelClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add label class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addLabelClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Label content" ModifierHelp="?string $content" ModifierDoubleInsert=":" ModifierName="label" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Hint tag configuration" ModifierHelp="array $config" ModifierDoubleInsert=":" ModifierName="hintConfig" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set hint tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="hintAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add hint tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addHintAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Hint tag id" ModifierHelp="?string $id" ModifierDoubleInsert=":" ModifierName="hintId" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set hint tag class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="hintClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add hint tag class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addHintClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Hint content" ModifierHelp="?string $content" ModifierDoubleInsert=":" ModifierName="hint" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Error tag configuration" ModifierHelp="array $config" ModifierDoubleInsert=":" ModifierName="errorConfig" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set error tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="errorAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add error tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addErrorAttributes" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Error tag id" ModifierHelp="?string $id" ModifierDoubleInsert=":" ModifierName="errorId" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Set error tag class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="errorClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Add error tag class(es)" ModifierHelp="?string ...$class" ModifierDoubleInsert=":" ModifierName="addErrorClass" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Error content" ModifierHelp="?string $message, string ...$messages" ModifierDoubleInsert=":" ModifierName="error" />
+        <LatteFilterSettings ModifierDescription="Control&#10;Use validation enrichment" ModifierHelp="?ValidationRulesEnricherInterface $enricher" ModifierDoubleInsert=":" ModifierName="enrich" />
       </list>
     </customModifierSettings>
   </component>
