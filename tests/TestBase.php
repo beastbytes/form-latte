@@ -33,7 +33,7 @@ class TestBase extends TestCase
     protected function tearDown(): void
     {
         parent::tearDown();
-        //FileHelper::removeDirectory(self::CACHE_DIR);
-        //FileHelper::removeDirectory(self::TEMPLATE_DIR);
+        FileHelper::removeDirectory(self::CACHE_DIR);
+        FileHelper::removeDirectory(self::TEMPLATE_DIR);
     }
 }
