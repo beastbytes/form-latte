@@ -100,7 +100,8 @@ You can pass a value if you want to. **NOTE** do not mix auto indexing and self 
 ## IDE Support
 ### JetBrains PhpStorm
 Install the [Latte Support](https://plugins.jetbrains.com/plugin/24218-latte-support) plugin.
-Copy the `latte.xml` file (in the root directory of this package) to the `.idea` directory of your project.
+Either copy the `latte.xml` file (in the root directory of this package) to the `.idea` directory of your project
+or merge with an existing `latte.xml`.
 
 ## License
 The BeastBytes View Latte Form package is free software. It is released under the terms of the BSD License.
