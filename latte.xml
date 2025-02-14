@@ -40,6 +40,7 @@
     </customMacroSettings>
     <customModifierSettings>
       <list>
+        <LatteFilterSettings ModifierDescription="File: Accepted mime types" ModifierHelp="string $accept" ModifierDoubleInsert=":" ModifierName="accept" />
         <LatteFilterSettings ModifierDescription="Form: Submission character encoding" ModifierHelp="string $charset" ModifierDoubleInsert=":" ModifierName="acceptCharset" />
         <LatteFilterSettings ModifierDescription="Form: Submission URL" ModifierHelp="string $url" ModifierDoubleInsert=":" ModifierName="action" />
         <LatteFilterSettings ModifierDescription="Form: Add attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="addAttributes" />
