@@ -43,7 +43,7 @@ Form field tags can have the same names as the Yii fields or HTML fields, e.g. '
 
 A form input has the pattern:
 ```latte
-{tagname $formModel, 'parameter'|attribute1|attribute2...|attributeN}
+{tagname $formModel, 'parameter'|config1|config2|...|configN}
 ```
 
 ### Example 1
@@ -87,12 +87,12 @@ just add the `enrich` option. Yii's Field Enricher is used by default, but you c
 * **Tab Index**: If no value is given with the tabIndex option the package will auto index the fields.
 You can pass a value if you want to. **NOTE** do not mix auto indexing and self indexing in a form.
 ```latte
-    {* Auto numbering *}
+    {* Auto indexing *}
     {text $formModel, 'givenName'|tabIndex}
     {text $formModel, 'familyName'|tabIndex}
 ```
 ```latte
-    {* Self numbering *}
+    {* Self indexing *}
     {text $formModel, 'givenName'|tabIndex:1}
     {text $formModel, 'familyName'|tabIndex:2}
 ```
