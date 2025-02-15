@@ -1,6 +1,6 @@
-This package is a [Latte](https://latte.nette.org/) [extension](https://latte.nette.org/en/creating-extension) 
-that integrates the Yii 3 [Form Model](https://github.com/yiisoft/form-model) package with the 
-[Latte Renderer for Yii](https://github.com/beastbytes/view-latte); it supports all built-in fields.
+View Latte Form is a [Latte](https://latte.nette.org/) [extension](https://latte.nette.org/en/creating-extension) 
+that integrates the Yii 3 [Form Model package](https://github.com/yiisoft/form-model) with 
+[`view-latte`, a Latte Template View Renderer for Yii3](https://github.com/beastbytes/view-latte).
 
 ## Requirements
 - PHP 8.1 or higher.
@@ -30,7 +30,7 @@ of your configuration.
 ],
 ```
 
-## Usage
+## Description
 The extension adds tags to Latte for form fields (including errorSummary), and the form and fieldset HTML tags.
 The extension follows the conventions of the Form Model package, in that form fields are specified with the form model,
 field parameter, and optionally a theme;
@@ -39,11 +39,14 @@ where an option takes a value, the value is the same as for the equivalent form 
 
 ### Form Fields
 Form field tags can have the same names as the Yii fields or HTML fields, e.g. 'text', 'email', etc.;
-'tel' or 'telephone' can be used, as can 'submit' or 'submitButton', 'reset' or 'resetButton'.
+'tel' or 'telephone' can be used, as can 'submit' or 'submitButton', and 'reset' or 'resetButton'.
+
+## Usage
+Write forms in Latte templates using the tags and configuration "filters" defined by the extension.
 
 A form input has the pattern:
 ```latte
-{tagname $formModel, 'parameter'|config1|config2|...|configN}
+{tag $formModel, 'parameter'|config1|config2|...|configN}
 ```
 
 ### Example 1
