@@ -2,8 +2,7 @@
   "name": "beastbytes/view-latte-form",
   "description": "Integrates the Yii Framework Form package with view-latte Latte Template Renderer simplifying form creation",
   "keywords": [
-    "yii",
-    "extension",
+    "yii3",
     "form",
     "latte",
     "renderer"
