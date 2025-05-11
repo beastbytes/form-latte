@@ -1,4 +1,4 @@
-View Latte Form is a [Latte](https://latte.nette.org/) [extension](https://latte.nette.org/en/creating-extension) 
+Form Latte is a [Latte](https://latte.nette.org/) [extension](https://latte.nette.org/en/creating-extension) 
 that integrates the Yii 3 [Form Model package](https://github.com/yiisoft/form-model) with 
 [`view-latte`, a Latte Template View Renderer for Yii3](https://github.com/beastbytes/view-latte).
 
@@ -10,11 +10,11 @@ Install the package using [Composer](https://getcomposer.org):
 
 Either:
 ```shell
-composer require beastbytes/view-latte-form
+composer require beastbytes/form-latte
 ```
 or add the following to the `require` section of your `composer.json`
 ```json
-"beastbytes/view-latte-form": "{version constraint}"
+"beastbytes/form-latte": "{version constraint}"
 ```
 
 ## Configuration
