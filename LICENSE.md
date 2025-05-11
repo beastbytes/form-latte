@@ -1,4 +1,4 @@
-The view-latte-form package is free software. It is released under the terms of the following BSD License.
+The form-latte package is free software. It is released under the terms of the following BSD License.
 
 Copyright © 2025 BeastBytes - All rights reserved.
 
