@@ -14,7 +14,7 @@ composer require beastbytes/view-latte-form
 ```
 or add the following to the `require` section of your `composer.json`
 ```json
-"beastbytes/view-latte-form": "*"
+"beastbytes/view-latte-form": "{version constraint}"
 ```
 
 ## Configuration
