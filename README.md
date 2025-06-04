@@ -55,7 +55,7 @@ Login form
 {form $action|csrf:$csrf}
     {email $formModel, 'email'|required|tabIndex}
     {password $formModel, 'password'|required|tabIndex}
-    {submitButton 'Login'}
+    {submitButton}Login{/submitButton}
 {/form}
 ```
 
@@ -74,7 +74,7 @@ A form to collect a person's name, email, address, phone number, and agreement t
     {select $formModel, 'country'|required|tabIndex|optionsData:$countries}
     {tel $formModel, 'telephone'|required|tabIndex}
     {checkbox $formModel, 'agree'|tabIndex}
-    {submit 'Submit'}
+    {submit}Submit{/submit}
 {/form}
 ```
 
