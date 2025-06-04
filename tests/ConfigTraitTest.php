@@ -9,7 +9,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class ConfigTraitTest extends TestBase
+class ConfigTraitTest extends TestCase
 {
     #[Test]
     #[DataProvider('configProvider')]
@@ -17,12 +17,7 @@ class ConfigTraitTest extends TestBase
     {
         $formModel = new TestForm();
         $this->createTemplate($name, $tag, $config);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$name.latte", ['formModel' => $formModel])
-        ;
-
+        $html = $this->renderToString($name, ['formModel' => $formModel]);
         $this->assertSame($expected, $html);
     }
 
@@ -32,12 +27,7 @@ class ConfigTraitTest extends TestBase
     {
         $formModel = new TestForm();
         $this->createCounterTemplate($name, $value);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$name.latte", ['formModel' => $formModel])
-        ;
-
+        $html = $this->renderToString($name, ['formModel' => $formModel]);
         $this->assertSame($expected, $html);
     }
 
@@ -47,12 +37,7 @@ class ConfigTraitTest extends TestBase
     {
         $formModel = new TestForm();
         $this->createTemplate($name, $tag, $config);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$name.latte", ['formModel' => $formModel])
-        ;
-
+        $html = $this->renderToString($name, ['formModel' => $formModel]);
         $this->assertSame($expected, $html);
     }
 

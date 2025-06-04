@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Yiisoft\Html\Tag\Form;
 
-class FormTest extends TestBase
+class FormTest extends TestCase
 {
     private const CSRF_TOKEN = 'SWo74Kit470YinCd2kYxb3BDNYaBZ5jgV76UV1cEsrUrMniwmtyz8lbNP_jtdgUYPBlC_7Ym07kGx-ExNG-fww==';
     private const CSRF_NAME = 'testCsrf';
@@ -28,43 +28,37 @@ class FormTest extends TestBase
 EXPECTED;
 
         $this->generateSimpleForm();
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . '/form.latte', ['formModel' => $formModel])
-        ;
-
+        $html = $this->renderToString('form', ['formModel' => $formModel]);
         $this->assertSame($expected, $html);
     }
 
     #[Test]
     public function csrfForm(): void
     {
-        $csrfName = self::CSRF_NAME;
-        $csrfToken = self::CSRF_TOKEN;
-        $formModel = new TestForm();
-        $expected = <<<EXPECTED
+        $expected = sprintf(
+            <<<EXPECTED
 <form action="https://example.com/email/edit" method="post">
-<input type="hidden" name="$csrfName" value="$csrfToken">
+<input type="hidden" name="%s" value="%s">
 <div>
 <label for="testform-email">Email Field</label>
 <input type="email" id="testform-email" name="TestForm[email]" value>
 </div>
 </form>
 
-EXPECTED;
+EXPECTED,
+           self::CSRF_NAME,
+           self::CSRF_TOKEN
+        );
 
         $this->generateCsrfForm();
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . '/csrfForm.latte', [
+        $html = $this->renderToString(
+            'csrfForm',
+            [
                 'csrfName' => self::CSRF_NAME,
                 'csrfToken' => self::CSRF_TOKEN,
-                'formModel' => $formModel
-            ])
-        ;
-
+                'formModel' => new TestForm()
+            ]
+        );
         $this->assertSame($expected, $html);
     }
 
@@ -72,22 +66,15 @@ EXPECTED;
     #[DataProvider('modifierProvider')]
     public function modifierForm($modifier, $value, $expected): void
     {
-        $formModel = new TestForm();
-
         $this->generateModifierForm($modifier, $value);
-
-        $html = $this
-            ->latte
-            ->renderToString(
-                self::TEMPLATE_DIR . '/' . str_replace(' ', '_', $modifier) . '_modifierForm.latte',
-                [
-                    'csrfName' => self::CSRF_NAME,
-                    'csrfToken' => self::CSRF_TOKEN,
-                    'formModel' => $formModel
-                ]
-            )
-        ;
-
+        $html = $this->renderToString(
+            str_replace(' ', '_', $modifier) . '_modifierForm',
+            [
+                'csrfName' => self::CSRF_NAME,
+                'csrfToken' => self::CSRF_TOKEN,
+                'formModel' => new TestForm()
+            ]
+        );
         $this->assertSame($expected, $html);
     }
 

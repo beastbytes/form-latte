@@ -7,41 +7,44 @@ namespace BeastBytes\View\Latte\Form\Tests;
 use BeastBytes\View\Latte\Form\FormExtension;
 use BeastBytes\View\Latte\Form\Tests\Support\TestForm;
 use Generator;
-use phpDocumentor\Reflection\Types\Self_;
+use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Yiisoft\Validator\Result;
+use Yiisoft\Strings\Inflector;
+use Yiisoft\Strings\StringHelper;
 use Yiisoft\Validator\Validator;
 
-class FormFieldTest extends TestBase
+class FormFieldTest extends TestCase
 {
     private const ERROR_SUMMARY_FOOTER = 'Error Summary Footer';
     private const ERROR_SUMMARY_HEADER = 'Error Summary Header';
     private const LEGEND = 'Test Legend';
+
+    private static Inflector $inflector;
+
+    #[BeforeClass]
+    public static function beforeClass(): void
+    {
+        parent::beforeClass();
+        self::$inflector = new Inflector();
+    }
 
     #[Test]
     #[DataProvider('buttonTagProvider')]
     public function button(string $tag, string $expected): void
     {
         $this->createButtonTemplate($tag);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte");
-
+        $html = $this->renderToString($tag);
         $this->assertSame($expected, $html);
     }
 
     #[Test]
     #[DataProvider('buttonGroupTagProvider')]
-    public function buttonGroup(string $tag, string $expected): void
+    public function buttonGroup(?bool $encode, string $expected): void
     {
-        $this->createButtonGroupTemplate($tag);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte");
-
+        $tag = 'buttonGroup';
+        $this->createButtonGroupTemplate($tag, $encode);
+        $html = $this->renderToString($tag . (is_bool($encode) ? ($encode ? 'true' : 'false') : ''));
         $this->assertSame($expected, $html);
     }
 
@@ -49,13 +52,8 @@ class FormFieldTest extends TestBase
     #[DataProvider('fieldTagProvider')]
     public function field(string $tag, string $expected): void
     {
-        $formModel = new TestForm();
         $this->createFieldTemplate($tag);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
-
+        $html = $this->renderToString($tag, ['formModel' => new TestForm()]);
         $this->assertSame($expected, $html);
     }
 
@@ -68,11 +66,7 @@ class FormFieldTest extends TestBase
         $validator->validate($formModel);
 
         $this->createErrorSummaryTemplate($name, $tag);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$name.latte", ['formModel' => $formModel]);
-
+        $html = $this->renderToString($name, ['formModel' => $formModel]);
         $this->assertSame($expected, $html);
 
     }
@@ -81,13 +75,8 @@ class FormFieldTest extends TestBase
     #[DataProvider('fieldsetProvider')]
     public function fieldset(string $tag, string $expected): void
     {
-        $formModel = new TestForm();
         $this->createFieldsetTemplate();
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
-
+        $html = $this->renderToString($tag, ['formModel' => new TestForm()]);
         $this->assertSame($expected, $html);
     }
 
@@ -95,13 +84,8 @@ class FormFieldTest extends TestBase
     #[DataProvider('optionsFieldTagProvider')]
     public function optionsField(string $tag, string $expected): void
     {
-        $formModel = new TestForm();
         $this->createOptionsFieldTemplate($tag);
-
-        $html = $this
-            ->latte
-            ->renderToString(self::TEMPLATE_DIR . "/$tag.latte", ['formModel' => $formModel]);
-
+        $html = $this->renderToString($tag, ['formModel' => new TestForm()]);
         $this->assertSame($expected, $html);
     }
 
@@ -132,14 +116,37 @@ class FormFieldTest extends TestBase
     public static function buttonGroupTagProvider(): Generator
     {
         yield 'buttonGroup' => [
-            'tag' => 'buttonGroup',
+            'encode' => null,
             'expected' => <<<EXPECTED
 <div>
-<button type="reset">Reset</button>
-<button type="submit">Send</button>
+<button type="reset" class="default">Reset</button>
+<button type="button" class="more">Add</button>
+<button type="submit" class="primary">Send</button>
 </div>
 
-EXPECTED
+EXPECTED,
+        ];
+        yield 'buttonGroupEncode' => [
+            'encode' => true,
+            'expected' => <<<EXPECTED
+<div>
+<button type="reset" class="default">Reset &amp; Clear</button>
+<button type="button" class="more">Add</button>
+<button type="submit" class="primary">Send</button>
+</div>
+
+EXPECTED,
+        ];
+        yield 'buttonGroupNoEncode' => [
+            'encode' => false,
+            'expected' => <<<EXPECTED
+<div>
+<button type="reset" class="default">Reset & Clear</button>
+<button type="button" class="more">Add</button>
+<button type="submit" class="primary">Send</button>
+</div>
+
+EXPECTED,
         ];
     }
 
@@ -149,7 +156,7 @@ EXPECTED
             'tag' => 'button',
             'expected' => <<<EXPECTED
 <div>
-<button type="button">button</button>
+<button type="button">Button</button>
 </div>
 
 EXPECTED,
@@ -167,7 +174,7 @@ EXPECTED,
             'tag' => 'resetButton',
             'expected' => <<<EXPECTED
 <div>
-<button type="reset">resetButton</button>
+<button type="reset">Reset Button</button>
 </div>
 
 EXPECTED,
@@ -176,7 +183,7 @@ EXPECTED,
             'tag' => 'submitButton',
             'expected' => <<<EXPECTED
 <div>
-<button type="submit">submitButton</button>
+<button type="submit">Submit Button</button>
 </div>
 
 EXPECTED,
@@ -436,47 +443,55 @@ EXPECTED,
 </div>
 
 EXPECTED,
-                self::LEGEND
+                self::LEGEND,
             ),
         ];
     }
 
-    private function createButtonGroupTemplate($tag): void
+    private function createButtonGroupTemplate(string $tag, ?bool $encode): void
     {
         $template = sprintf(
             <<<'TEMPLATE'
-            {varType Yiisoft\FormModel\FormModel $formModel}
-            {var $buttons = [
-                Yiisoft\Html\Html::resetButton('Reset'),
-                Yiisoft\Html\Html::submitButton('Send'),
-            ]}
-            
-            {%s|buttons: ...$buttons}
+            {buttonGroup%s}
+                {resetButton |attributes:[class => 'default']}Reset%s{/resetButton}
+                {button |attributes:[class => 'more']}Add{/button}
+                {submitButton |attributes:[class => 'primary']}Send{/submitButton}
+            {/buttonGroup}
             TEMPLATE,
-            $tag
+            (is_bool($encode) ? '|encode:' . ($encode ? 'true' : 'false') : ''),
+            (is_bool($encode) ? ' & Clear' : ''),
         );
 
-        file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
+        file_put_contents(
+            self::TEMPLATE_DIR . '/' . $tag
+                . (is_bool($encode) ? ($encode ? 'true' : 'false') : '') . '.latte',
+            $template,
+        );
     }
 
-    private function createButtonTemplate($tag): void
+    private function createButtonTemplate(string $tag): void
     {
         if ($tag === 'image') {
-            $template = <<<'TEMPLATE'
-            {%1$s '%1$s@example.com'}
-            TEMPLATE;
+            $template = sprintf(
+                <<<'TEMPLATE'
+                    {%1$s}%1$s@example.com{/%1$s}
+                    TEMPLATE,
+                $tag,
+            );
         } else {
-            $template = <<<'TEMPLATE'
-            {%1$s '%1$s'}
-            TEMPLATE;
+            $template = sprintf(
+                <<<'TEMPLATE'
+                    {%1$s}%2$s{/%1$s}
+                    TEMPLATE,
+                $tag,
+                StringHelper::uppercaseFirstCharacterInEachWord(self::$inflector->toWords($tag)),
+            );
         }
-
-        $template = sprintf($template, $tag);
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
     }
 
-    private function createFieldTemplate($tag): void
+    private function createFieldTemplate(string $tag): void
     {
         $template = sprintf(
             <<<'TEMPLATE'
@@ -484,7 +499,7 @@ EXPECTED,
             
             {%1$s $formModel, '%1$s'}
             TEMPLATE,
-            $tag
+            $tag,
         );
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
@@ -502,10 +517,10 @@ EXPECTED,
                 'errorSummaryHeaderFooter' => sprintf(
                     '|onlyFirst|header:%s|footer:%s',
                     "'" . self::ERROR_SUMMARY_HEADER . "'",
-                    "'" . self::ERROR_SUMMARY_FOOTER . "'"
+                    "'" . self::ERROR_SUMMARY_FOOTER . "'",
                 ),
                 default => ''
-            }
+            },
         );
 
         file_put_contents(self::TEMPLATE_DIR . "/$name.latte", $template);
@@ -521,13 +536,13 @@ EXPECTED,
             {text $formModel, 'text'}
             {/fieldset}
             TEMPLATE,
-            self::LEGEND
+            self::LEGEND,
         );
 
         file_put_contents(self::TEMPLATE_DIR . '/fieldset.latte', $template);
     }
 
-    private function createOptionsFieldTemplate($tag): void
+    private function createOptionsFieldTemplate(string $tag): void
     {
         $template = sprintf(
             <<<'TEMPLATE'
@@ -536,7 +551,7 @@ EXPECTED,
             
             {%1$s $formModel, '%1$s'|%2$s}
             TEMPLATE,
-            $tag, ($tag === 'select' ? 'optionsData:$options' : 'items:$options')
+            $tag, ($tag === 'select' ? 'optionsData:$options' : 'items:$options'),
         );
 
         file_put_contents(self::TEMPLATE_DIR . "/$tag.latte", $template);
