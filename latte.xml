@@ -78,7 +78,6 @@
         <LatteFilterSettings ModifierDescription="Control: Get focus on page load. Only one control should have autofocus" ModifierHelp="" ModifierDoubleInsert="" ModifierName="autofocus" />
         <LatteFilterSettings ModifierDescription="Control: Text rendered before the input" ModifierHelp="string|Stringable $content" ModifierDoubleInsert=":" ModifierName="beforeInput" />
         <LatteFilterSettings ModifierDescription="Button: Set button attributes" ModifierHelp="string ...$class" ModifierDoubleInsert=":" ModifierName="buttonAttributes" />
-        <LatteFilterSettings ModifierDescription="Button Group: Buttons in the group" ModifierHelp="ButtonTag ...$buttons" ModifierDoubleInsert=":" ModifierName="buttons" />
         <LatteFilterSettings ModifierDescription="Button Group: Set attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="buttonsAttributes" />
         <LatteFilterSettings ModifierDescription="Button: Set button class(es)" ModifierHelp="string ...$class" ModifierDoubleInsert=":" ModifierName="buttonClass" />
         <LatteFilterSettings ModifierDescription="Button Group: Array of buttons. Each button is an array with label as first element and additional name-value pairs as attributes of button" ModifierHelp="array $data, bool $encode = true" ModifierDoubleInsert=":" ModifierName="buttonsData" />
@@ -104,6 +103,7 @@
         <LatteFilterSettings ModifierDescription="Form: Characters are encoded on form submission" ModifierHelp="" ModifierDoubleInsert="" ModifierName="enctypeApplicationXWwwFormUrlencoded" />
         <LatteFilterSettings ModifierDescription="Form: Allows file &lt;input&gt; elements to upload file data" ModifierHelp="" ModifierDoubleInsert="" ModifierName="enctypeMultipartFormData" />
         <LatteFilterSettings ModifierDescription="Form: Sends data without any encoding at all. &#10;Not recommended" ModifierHelp="" ModifierDoubleInsert="" ModifierName="enctypeTextPlain" />
+        <LatteFilterSettings ModifierDescription="Button Group: Whether to encode button content" ModifierHelp="boolean $encode" ModifierDoubleInsert=":" ModifierName="encode" />
         <LatteFilterSettings ModifierDescription="Control: Use validation enrichment. &#10;An enricher that implements ValidationRulesEnricherInterface &#10;can be set as a parameter" ModifierHelp="" ModifierDoubleInsert="" ModifierName="enrich" />
         <LatteFilterSettings ModifierDescription="Control: Error content" ModifierHelp="string $message, string ...$messages" ModifierDoubleInsert=":" ModifierName="error" />
         <LatteFilterSettings ModifierDescription="Control: Set error tag attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="errorAttributes" />

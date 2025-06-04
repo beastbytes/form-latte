@@ -49,6 +49,24 @@ A form input has the pattern:
 {tag $formModel, 'parameter'|config1|config2|...|configN}
 ```
 
+A form button has the pattern:
+```latte
+{button |config}Content{/button}
+```
+
+A button group has the pattern:
+```latte
+{buttonGroup}
+{button|attributes:[k=>v]}Button 1{/button}
+{button|attributes:[k=>v]}Button 1{/button}
+...
+{button|attributes:[k=>v]}Button n{/button}
+{/buttonGroup}
+```
+**NOTE:** In a buttonGroup, `attributes` is the only allowed configuration for the button tag.
+**Note:** The buttonGroup tag has the `encode` configuration which takes a boolean value (default `true`) to determine
+if button content is HTML encoded.
+
 ### Example 1
 Login form
 ```latte
