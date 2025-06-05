@@ -179,11 +179,29 @@ EXPECTED,
 
 EXPECTED,
         ];
+        yield 'reset' => [
+            'tag' => 'reset',
+            'expected' => <<<EXPECTED
+<div>
+<button type="reset">Reset</button>
+</div>
+
+EXPECTED,
+        ];
         yield 'submitButton' => [
             'tag' => 'submitButton',
             'expected' => <<<EXPECTED
 <div>
 <button type="submit">Submit Button</button>
+</div>
+
+EXPECTED,
+        ];
+        yield 'submit' => [
+            'tag' => 'submit',
+            'expected' => <<<EXPECTED
+<div>
+<button type="submit">Submit</button>
 </div>
 
 EXPECTED,
