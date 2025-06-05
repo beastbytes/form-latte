@@ -78,14 +78,35 @@ final class ButtonNode extends StatementNode
     {
         return $context->format(
             <<<'MASK'
-            echo Yiisoft\FormModel\Field::%node('%raw', %raw, %node) %line;
+            echo Yiisoft\FormModel\Field::%node(%raw, %raw, %node) %line;
             echo "\n";
             MASK,
             $this->name,
-            NodeHelpers::toText($this->content),
+            $this->getContent($context),
             $this->getConfig($context),
             $this->theme,
             $this->position,
+        );
+    }
+
+    private function getContent($context): string
+    {
+        return preg_replace(
+            [
+                "|('\s+')?|",
+                '|( /\* line \d+ \*/)?|',
+            ],
+            '',
+            str_replace(
+                [
+                    'echo ',
+                    ';',
+                    "\n",
+                    "''",
+                ],
+                '',
+                $this->content->print($context)
+            )
         );
     }
 
