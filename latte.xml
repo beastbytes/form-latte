@@ -3,8 +3,8 @@
   <component name="LattePluginSettings">
     <customMacroSettings>
       <list>
-        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="button" />
-        <LatteTagSettings AllowedModifiers="true" Arguments="?string $theme" DeprecatedMessage="" MacroName="buttonGroup" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="button" MacroType="PAIR" MultiLine="true" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="?string $theme" DeprecatedMessage="" MacroName="buttonGroup" MacroType="PAIR" MultiLine="true" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="checkbox" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="checkboxList" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="color" />
@@ -23,12 +23,12 @@
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="radio" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="radioList" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="range" />
-        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="reset" />
-        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="resetButton" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="reset" MacroType="PAIR" MultiLine="true" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="resetButton" MacroType="PAIR" MultiLine="true" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="search" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="select" />
-        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="submit" />
-        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="submitButton" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="submit" MacroType="PAIR" MultiLine="true" />
+        <LatteTagSettings AllowedModifiers="true" Arguments="string $content, ?string $theme" DeprecatedMessage="" MacroName="submitButton" MacroType="PAIR" MultiLine="true" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="tel" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="telephone" />
         <LatteTagSettings AllowedModifiers="true" Arguments="FormModelInterface $formModel, string $parameter, ?string $theme" DeprecatedMessage="" MacroName="text" />
