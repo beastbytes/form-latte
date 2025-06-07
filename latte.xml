@@ -81,6 +81,7 @@
         <LatteFilterSettings ModifierDescription="Button Group: Set attributes" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="buttonsAttributes" />
         <LatteFilterSettings ModifierDescription="Button: Set button class(es)" ModifierHelp="string ...$class" ModifierDoubleInsert=":" ModifierName="buttonClass" />
         <LatteFilterSettings ModifierDescription="Button Group: Array of buttons. Each button is an array with label as first element and additional name-value pairs as attributes of button" ModifierHelp="array $data, bool $encode = true" ModifierDoubleInsert=":" ModifierName="buttonsData" />
+        <LatteFilterSettings ModifierDescription="Button: Set button id attribute" ModifierHelp="string $id" ModifierDoubleInsert=":" ModifierName="buttonId" />
         <LatteFilterSettings ModifierDescription="CheckboxList: Wrap items" ModifierHelp="bool $wrap" ModifierDoubleInsert=":" ModifierName="checkboxLabelWrap" />
         <LatteFilterSettings ModifierDescription="CheckboxList: Set attributes for items wrap tag" ModifierHelp="array $attributes" ModifierDoubleInsert=":" ModifierName="checkboxWrapAttributes" />
         <LatteFilterSettings ModifierDescription="CheckboxList: Set class(es) for items wrap tag" ModifierHelp="string ...$class" ModifierDoubleInsert=":" ModifierName="checkboxWrapClass" />
